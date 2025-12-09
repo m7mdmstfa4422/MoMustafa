@@ -69,29 +69,23 @@ export default function Sidebar() {
         </div>
       </Link>
       {/* Download CV */}
-      <Link
-        to="/Mohamed-Mustafa-CV.pdf"
-        download="Mohamed-Mustafa-CV.pdf"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <Link to="https://drive.google.com/file/d/1_1VIcpSfC9nUzKrdATvT3g4Srug2cNvd/view?usp=drive_link" target="_blank">
         <div className="flex md:block">
           <button
-            onClick={() => setActiveIcon("Download")}
-            className={`p-3 rounded-full transition-all duration-300 transform hover:scale-110 ${activeIcon === "Download"
+            onClick={() => setActiveIcon("Email")}
+            className={`p-3 rounded-full transition-all duration-300 transform hover:scale-110 ${activeIcon === "Camera"
               ? "bg-gradient-to-br from-blue-500 to-cyan-400 text-white shadow-lg shadow-blue-500/50 scale-110"
               : "bg-slate-100/50 dark:bg-slate-700/50 hover:bg-blue-100/60 dark:hover:bg-blue-700/60 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-200 hover:shadow-lg hover:shadow-blue-400/30 dark:hover:shadow-blue-500/30"
               }`}
-            aria-label="Download CV"
+            aria-label="Email"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M12 3v12m0 0l-3-3m3 3l3-3m-9 6h12a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2z"></path>
             </svg>
-            
           </button>
         </div>
       </Link>
-      {/* Settings Icon */}
+
 
 
       {/* email Icon */}
