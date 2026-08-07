@@ -1,78 +1,51 @@
-"use client"
-import React from "react"
-import { motion } from "framer-motion"
-import { Link } from "react-router-dom"
+"use client";
+
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export default function ProjectCard({ project }) {
-  if (!project) return null
+  if (!project) return null;
+
+  const tags = (project.tags?.length ? project.tags : ["HTML"]).slice(0, 5);
 
   return (
-    <Link to={`/projects/${project.id}`} className="block h-full">
+    <Link to={`/projects/${project.id}`} className="group block h-full rounded-[1.5rem] outline-none focus-visible:ring-4 focus-visible:ring-cyan-400/70">
       <motion.article
-        className="group relative overflow-hidden rounded-2xl bg-gray-200/20 dark:bg-slate-900/85 shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col"
-        whileHover={{ translateY: -6 }}
+        initial={{ opacity: 0, y: 22 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        whileHover={{ y: -9 }}
+        transition={{ type: "spring", stiffness: 230, damping: 22 }}
+        className="relative flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-white/70 bg-white/65 shadow-xl shadow-indigo-950/[.07] backdrop-blur-xl transition-shadow duration-300 group-hover:shadow-2xl group-hover:shadow-indigo-950/[.16] dark:border-white/10 dark:bg-white/[.045] dark:shadow-black/25"
       >
-        {/* Image (keep intrinsic 1280x800) */}
-        <div className="relative w-full overflow-hidden rounded-t-2xl">
-          <img
-            src={project.image || "/placeholder.svg"}
-            alt={project.title}
-            width={1280}
-            height={800}
-            style={{ width: "100%", maxWidth: 1280, height: "auto", objectFit: "cover" }}
-            className="block transform transition-transform duration-500 group-hover:scale-105"
-          />
-
-          {/* soft gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
-
-          {/* badges on image */}
-          <div className="absolute left-4 bottom-4 flex items-center gap-3">
-            <span className="px-3 py-1 text-xs font-semibold bg-cyan-600 text-white rounded-full">{project.category}</span>
+        <div className="relative aspect-[16/10] overflow-hidden">
+          <img src={project.image || "/placeholder.svg"} alt={project.title} className="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-110" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/10 to-transparent" />
+          <div className="absolute inset-x-4 bottom-4 flex items-end justify-between gap-3">
+            <span className="rounded-full border border-white/20 bg-slate-950/45 px-3 py-1.5 text-xs font-bold text-white backdrop-blur-md">{project.category}</span>
+            <motion.span whileHover={{ rotate: 45 }} className="grid h-10 w-10 place-items-center rounded-full border border-white/25 bg-white/15 text-white backdrop-blur-md"><svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M7 17 17 7M8 7h9v9" /></svg></motion.span>
           </div>
         </div>
 
-        {/* Content */}
-        <div className="p-5 md:p-6 flex flex-col gap-3 flex-1">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <h3 className="text-lg md:text-xl font-extrabold text-slate-900 dark:text-white">{project.title}</h3>
-              <p className="mt-1 text-sm text-sky-600 font-medium">{project.subtitle}</p>
-            </div>
-
-            <div className="hidden md:flex items-center gap-2">
-              <button className="px-3 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-semibold">Preview</button>
-            </div>
+        <div className="relative flex flex-1 flex-col p-5 md:p-6">
+          <span className="pointer-events-none absolute -right-16 -top-16 h-36 w-36 rounded-full bg-cyan-400/0 blur-3xl transition duration-500 group-hover:bg-cyan-400/15" />
+          <div className="relative">
+            <p className="mb-2 text-sm font-semibold text-indigo-600 dark:text-cyan-300">{project.subtitle}</p>
+            <h3 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">{project.title}</h3>
+            <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">{project.description}</p>
           </div>
 
-          <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-3">
-            {project.description}
-          </p>
-
-          <div className="flex flex-wrap gap-2 mt-2">
-            {(project.tags || ["html"]).slice(0,6).map((t, i) => (
-              <span key={i} className="text-xs px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">
-                {t}
-              </span>
-            ))}
+          <div className="relative mt-5 flex flex-wrap gap-2">
+            {tags.map((tag) => <span key={tag} className="rounded-full border border-indigo-100 bg-indigo-50/70 px-2.5 py-1 text-xs font-medium text-indigo-700 dark:border-white/10 dark:bg-white/[.06] dark:text-indigo-200">{tag}</span>)}
           </div>
 
-          <div className="mt-auto pt-4 flex items-center justify-end gap-3">
-            <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">Details</span>
-            <motion.div
-              className="w-10 h-10 rounded-full bg-white/90 dark:bg-slate-800/70 flex items-center justify-center shadow"
-              whileHover={{ scale: 1.06 }}
-            >
-              <svg className="w-4 h-4 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </motion.div>
+          <div className="relative mt-auto flex items-center justify-between border-t border-slate-200/70 pt-5 text-sm font-bold text-slate-700 dark:border-white/10 dark:text-slate-200">
+            <span>View case study</span>
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-gradient-to-br from-indigo-500 to-cyan-500 text-white shadow-lg shadow-indigo-500/25 transition-transform duration-300 group-hover:translate-x-1"><svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14m-6-6 6 6-6 6" /></svg></span>
           </div>
         </div>
-
-        {/* thin accent bar */}
-        <div className="h-1 bg-gradient-to-r from-cyan-400 to-blue-500 w-full transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
+        <span className="h-1 w-full origin-left scale-x-0 bg-gradient-to-r from-violet-500 via-indigo-500 to-cyan-400 transition-transform duration-500 group-hover:scale-x-100" />
       </motion.article>
     </Link>
-  )
+  );
 }

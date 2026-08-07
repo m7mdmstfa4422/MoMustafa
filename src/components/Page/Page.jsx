@@ -22,8 +22,8 @@ export default function Home() {
   }, [])
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen bg-white dark:bg-slate-950">
-      <main className="flex-1 flex flex-col mb-20 md:mb-0 md:ml-20">
+   
+      <main className="md:ml-18">
         <Hero />
         <StatsSection />
         <div id="projects">
@@ -32,6 +32,6 @@ export default function Home() {
         <Footer />
 
       </main>
-    </div>
+ 
   )
 }

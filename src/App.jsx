@@ -5,6 +5,8 @@ import { createHashRouter, RouterProvider } from "react-router-dom"
 import Page from "./components/Page/Page"
 import Layout from "./components/Layout/Layout"
 import Information from "./components/Information/Information"
+import Projects from "./components/Projects/Projects"
+import LayoutPro from "./components/LayoutPro/LayoutPro"
 
 
 const router = createHashRouter([
@@ -20,8 +22,12 @@ const router = createHashRouter([
         path: "/projects/:id",
         element: <Information />,
       },
+
     ],
   },
+  {
+    path: "/Allprojects", element: <LayoutPro />,
+  }
 ])
 
 function App() {

@@ -92,6 +92,16 @@ export default function Projects() {
       image: asset("images/p7/cover.png"),
       tags: ["React", "Tailwind", "API", "Vite", "JavaScript"],
     },
+    {
+      id: 8,
+      title: "Burger Nest",
+      subtitle: "Menu & Ordering",
+      category: "React vite",
+      description:
+        "A full-featured restaurant ordering platform where customers can create accounts, browse the menu, place orders, and track their experience, while administrators manage incoming orders through a dedicated dashboard.",
+      image: asset("images/p9/beg.png"),
+      tags: ["React", "Tailwind", "Backend", "Vite", "JavaScript"],
+    },
 
   ]
 

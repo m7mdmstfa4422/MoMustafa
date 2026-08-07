@@ -129,6 +129,37 @@ export default function Information() {
       icons: [asset("images/webIcon/html.png"), asset("images/webIcon/tailwind.png"), asset("images/webIcon/react.png")],
 
     },
+    8: {
+      id: 8,
+      title: "Burger Nest",
+      subtitle: "Menu & Ordering",
+      category: "React Vite + Backend",
+      description:
+        "A full-featured restaurant ordering platform where customers can create accounts, browse the menu, place orders, and track their experience, while administrators manage incoming orders through a dedicated dashboard.",
+      year: "2026",
+      image: asset("mobile-app-design.png"),
+      gallery: [
+        asset("images/p9/beg.png"),
+        asset("images/p9/beg2.png"),
+        asset("images/p9/beg3.png"),
+        asset("images/p9/beg4.png"),
+        asset("images/p9/beg5.png"),
+        asset("images/p9/beg6.png"),
+        asset("images/p9/beg7.png"), asset("images/p9/beg8.png"), asset("images/p9/beg9.png"),
+      ],
+      video: asset("images/p7/VP7.mp4"),
+      gradient: "from-purple-600 via-pink-600 to-orange-500",
+
+      link: "https://burgernestt.vercel.app/",
+
+      github: "https://github.com/m7mdmstfa4422/burger",
+
+      icons: [
+        asset("images/webIcon/html.png"),
+        asset("images/webIcon/tailwind.png"),
+        asset("images/webIcon/react.png"),
+      ],
+    },
   };
 
 
@@ -254,8 +285,8 @@ export default function Information() {
 
             <ProjectContent project={project} />
 
+            <Footer />
           </div>
-          <Footer />
         </motion.div>
       </motion.div>
     </AnimatePresence>
