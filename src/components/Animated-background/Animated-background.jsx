@@ -25,28 +25,28 @@ export default function AnimatedBackground() {
 
   return (
     <div ref={containerRef} className="fixed inset-0 -z-10 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900" />
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-[#091970]/80 to-slate-900" />
 
       <div
-        className="absolute inset-0 bg-gradient-to-tr from-blue-950 via-purple-950 to-slate-950 opacity-80"
+        className="absolute inset-0 bg-gradient-to-tr from-[#091970]/50 via-[#094dbf]/20 to-slate-950 opacity-80"
         style={{ animation: "colorShift 15s ease-in-out infinite" }}
       />
 
       <div
         data-blend
-        className="absolute inset-0 bg-gradient-to-bl from-indigo-950 via-slate-950 to-blue-950 opacity-60"
+        className="absolute inset-0 bg-gradient-to-bl from-[#091970] via-slate-950 to-[#0968e5]/25 opacity-60"
         style={{ animation: "colorShift 20s ease-in-out infinite reverse" }}
       />
 
       <div
-        className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-950 to-transparent opacity-40"
+        className="absolute inset-0 bg-gradient-to-r from-transparent via-[#0968e5]/15 to-transparent opacity-40"
         style={{ animation: "colorShift 25s ease-in-out infinite" }}
       />
 
       <div
         className="absolute inset-0 opacity-50"
         style={{
-          background: "radial-gradient(circle at 50% 50%, transparent 0%, rgba(15, 23, 42, 0.95) 100%)",
+          background: "radial-gradient(circle at 50% 50%, transparent 0%, rgba(9, 25, 112, 0.4) 100%)",
         }}
       />
 
@@ -54,7 +54,7 @@ export default function AnimatedBackground() {
         className="absolute inset-0 opacity-15"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(59,130,246,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.1)_1px,transparent_1px)",
+            "linear-gradient(rgba(9,104,229,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(9,104,229,0.15)_1px,transparent_1px)",
           backgroundSize: "50px 50px",
           animation: "gridShift 30s linear infinite",
         }}

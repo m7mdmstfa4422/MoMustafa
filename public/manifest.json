@@ -1,5 +1,5 @@
 {
-  "name": "Mohamed Mustafa Portfolio",
+  "name": "Mo Mustafa ",
   "short_name": "MoMustafa",
   "description": "Mohamed Mustafa - Full Stack Developer | Creative web experiences with React, JavaScript & modern technologies",
   "start_url": "/MoMustafa/",
@@ -11,19 +11,19 @@
   "categories": ["productivity", "business"],
   "icons": [
     {
-      "src": "/images/webicon.png",
+      "src": "./public/images/icon.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/images/webicon.png",
+      "src": "./public/images/icon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/images/webicon.png",
+      "src": "./public/images/icon.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
@@ -31,12 +31,12 @@
   ],
   "screenshots": [
     {
-      "src": "/images/webicon.png",
+      "src": "./public/images/icon.png",
       "sizes": "540x720",
       "form_factor": "narrow"
     },
     {
-      "src": "/images/webicon.png",
+      "src": "./public/images/icon.png",
       "sizes": "1280x720",
       "form_factor": "wide"
     }
@@ -49,7 +49,7 @@
       "url": "/MoMustafa/#/",
       "icons": [
         {
-          "src": "/images/webicon.png",
+          "src": "./public/images/icon.png",
           "sizes": "192x192"
         }
       ]
@@ -61,7 +61,7 @@
       "url": "/MoMustafa/#/",
       "icons": [
         {
-          "src": "/images/webicon.png",
+          "src": "./public/images/icon.png",
           "sizes": "192x192"
         }
       ]

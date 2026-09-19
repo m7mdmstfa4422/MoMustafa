@@ -2,50 +2,119 @@
 
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { ExternalLink, ArrowRight } from "lucide-react";
 
 export default function ProjectCard({ project }) {
   if (!project) return null;
 
-  const tags = (project.tags?.length ? project.tags : ["HTML"]).slice(0, 5);
+  const tags = (project.tags?.length ? project.tags : ["HTML"]).slice(0, 4);
 
   return (
-    <Link to={`/projects/${project.id}`} className="group block h-full rounded-[1.5rem] outline-none focus-visible:ring-4 focus-visible:ring-cyan-400/70">
+    <div className="group block h-full rounded-[1.75rem] outline-none">
       <motion.article
-        initial={{ opacity: 0, y: 22 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
-        whileHover={{ y: -9 }}
-        transition={{ type: "spring", stiffness: 230, damping: 22 }}
-        className="relative flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-white/70 bg-white/65 shadow-xl shadow-indigo-950/[.07] backdrop-blur-xl transition-shadow duration-300 group-hover:shadow-2xl group-hover:shadow-indigo-950/[.16] dark:border-white/10 dark:bg-white/[.045] dark:shadow-black/25"
+        whileHover={{ y: -7 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+        className="relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-white/80 bg-white/75 shadow-xl shadow-[#091970]/[0.06] backdrop-blur-2xl transition-all duration-300 hover:border-[#0968e5]/40 hover:shadow-2xl hover:shadow-[#0968e5]/15 dark:border-white/10 dark:bg-white/[0.045] dark:shadow-black/25"
       >
-        <div className="relative aspect-[16/10] overflow-hidden">
-          <img src={project.image || "/placeholder.svg"} alt={project.title} className="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-110" />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/10 to-transparent" />
-          <div className="absolute inset-x-4 bottom-4 flex items-end justify-between gap-3">
-            <span className="rounded-full border border-white/20 bg-slate-950/45 px-3 py-1.5 text-xs font-bold text-white backdrop-blur-md">{project.category}</span>
-            <motion.span whileHover={{ rotate: 45 }} className="grid h-10 w-10 place-items-center rounded-full border border-white/25 bg-white/15 text-white backdrop-blur-md"><svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M7 17 17 7M8 7h9v9" /></svg></motion.span>
+        {/* Browser Mockup Window Chrome Header */}
+        <div className="flex items-center justify-between px-4 py-2.5 border-b border-slate-200/70 dark:border-white/10 bg-slate-50/80 dark:bg-white/[0.03]">
+          {/* Traffic Light Dots */}
+          <div className="flex items-center gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-rose-400/80" />
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-400/80" />
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/80" />
           </div>
+
+          {/* Category Pill */}
+          <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            {project.category}
+          </span>
         </div>
 
+        {/* Project Preview Image Canvas */}
+        <Link to={`/projects/${project.id}`} className="relative aspect-[16/10] overflow-hidden block">
+          <img
+            src={project.image || "/placeholder.svg"}
+            alt={project.title}
+            className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+
+          {/* Corner Year Badge */}
+          {project.year && (
+            <div className="absolute top-3 right-3">
+              <span className="rounded-full border border-white/20 bg-slate-950/60 px-2.5 py-0.5 text-[10px] font-mono font-bold text-white backdrop-blur-md">
+                {project.year}
+              </span>
+            </div>
+          )}
+
+          {/* Quick Hover Action Overlay */}
+          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-slate-950/20 backdrop-blur-[2px]">
+            <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/90 dark:bg-slate-950/90 text-xs font-bold text-[#091970] dark:text-[#7ab3ff] shadow-lg transform translate-y-2 group-hover:translate-y-0 transition-transform">
+              <span>View Case Study</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </span>
+          </div>
+        </Link>
+
+        {/* Card Content */}
         <div className="relative flex flex-1 flex-col p-5 md:p-6">
-          <span className="pointer-events-none absolute -right-16 -top-16 h-36 w-36 rounded-full bg-cyan-400/0 blur-3xl transition duration-500 group-hover:bg-cyan-400/15" />
-          <div className="relative">
-            <p className="mb-2 text-sm font-semibold text-indigo-600 dark:text-cyan-300">{project.subtitle}</p>
-            <h3 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">{project.title}</h3>
-            <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">{project.description}</p>
+          <Link to={`/projects/${project.id}`} className="block">
+            <p className="mb-1 text-xs font-bold uppercase tracking-wider text-[#0968e5] dark:text-[#7ab3ff]">
+              {project.subtitle}
+            </p>
+            <h3 className="text-xl font-black tracking-tight text-slate-900 dark:text-white group-hover:text-[#0968e5] dark:group-hover:text-[#7ab3ff] transition-colors">
+              {project.title}
+            </h3>
+            <p className="mt-2.5 line-clamp-2 text-xs sm:text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+              {project.description}
+            </p>
+          </Link>
+
+          {/* Micro Tags Strip */}
+          <div className="relative mt-4 flex flex-wrap gap-1.5">
+            {tags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-lg border border-[#0968e5]/20 bg-[#0968e5]/5 px-2 py-0.5 text-[11px] font-medium text-[#091970] dark:border-white/10 dark:bg-white/[0.05] dark:text-[#7ab3ff]"
+              >
+                {tag}
+              </span>
+            ))}
           </div>
 
-          <div className="relative mt-5 flex flex-wrap gap-2">
-            {tags.map((tag) => <span key={tag} className="rounded-full border border-indigo-100 bg-indigo-50/70 px-2.5 py-1 text-xs font-medium text-indigo-700 dark:border-white/10 dark:bg-white/[.06] dark:text-indigo-200">{tag}</span>)}
-          </div>
+          {/* Card Action Footer */}
+          <div className="relative mt-auto flex items-center justify-between border-t border-slate-200/70 dark:border-white/10 pt-4 mt-5">
+            <Link
+              to={`/projects/${project.id}`}
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-[#0968e5] dark:hover:text-[#7ab3ff] transition-colors"
+            >
+              <span>Case Study</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            </Link>
 
-          <div className="relative mt-auto flex items-center justify-between border-t border-slate-200/70 pt-5 text-sm font-bold text-slate-700 dark:border-white/10 dark:text-slate-200">
-            <span>View case study</span>
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-gradient-to-br from-indigo-500 to-cyan-500 text-white shadow-lg shadow-indigo-500/25 transition-transform duration-300 group-hover:translate-x-1"><svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14m-6-6 6 6-6 6" /></svg></span>
+            {project.link && (
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="inline-flex items-center gap-1 text-xs font-bold text-[#0968e5] dark:text-[#7ab3ff] hover:underline"
+              >
+                <span>Live Demo</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            )}
           </div>
         </div>
-        <span className="h-1 w-full origin-left scale-x-0 bg-gradient-to-r from-violet-500 via-indigo-500 to-cyan-400 transition-transform duration-500 group-hover:scale-x-100" />
+
+        {/* Hover Bottom Sweep Accent Line */}
+        <span className="h-1 w-full origin-left scale-x-0 bg-gradient-to-r from-[#091970] via-[#094dbf] to-[#0968e5] transition-transform duration-300 group-hover:scale-x-100" />
       </motion.article>
-    </Link>
+    </div>
   );
 }

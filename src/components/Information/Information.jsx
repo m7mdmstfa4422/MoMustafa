@@ -1,294 +1,129 @@
-"use client"
+"use client";
+/* eslint-disable no-unused-vars */
 
-import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
-import { motion, AnimatePresence } from "framer-motion"
+import { useEffect, useState, useMemo } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowLeft, Sparkles } from "lucide-react";
+
+// Project Data repository
+import { projectsData } from "../../data/projectsData";
 
 // Components imports
-
-import ProjectContent from "../ProjectContent/ProjectContent"
-
-import Footer from "../Footer/Footer"
+import ProjectContent from "../ProjectContent/ProjectContent";
+import Footer from "../Footer/Footer";
 
 export default function Information() {
-  const { id } = useParams()
-  const [project, setProject] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-  // Resolve asset paths correctly for hash-based deployments (e.g., GitHub Pages)
-  const asset = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`
+  // Find project by ID
+  const project = useMemo(() => {
+    if (!id) return projectsData[0];
+    const found = projectsData.find((p) => String(p.id) === String(id));
+    return found || null;
+  }, [id]);
 
-  // Project data with consistent color schemes
-  const projectsData = {
-    1: {
-      id: 1,
-      title: "Daniels Page",
-      subtitle: "Personal Portfolio",
-      category: "Bootstrap",
-      description: "A modern and responsive personal portfolio built using Bootstrap components and utilities",
-      year: "2024",
-      image: asset("images/p2/proto1.png"),
-      gallery: [asset("images/p2/proto1.png"), asset("images/p2/proto2.png"), asset("images/p2/proto3.png"), asset("images/p2/proto4.png")],
-      gradient: "from-indigo-900 via-purple-800 to-pink-700",
-      link: "https://m7mdmstfa4422.github.io/Daniels-Page/",
-      github: "https://github.com/m7mdmstfa4422/Daniels-Page",
-      icons: [asset("images/webIcon/html.png"), asset("images/webIcon/bootstrap.png"), asset("images/webIcon/js.png")],
-    },
-
-    2: {
-      id: 2,
-      title: "Book marker",
-      subtitle: "Save & Manage Links",
-      category: "JavaScript",
-      description: "A simple and efficient tool to save, organize, and access your favorite websites",
-      year: "2024",
-      image: asset("images/p3/Book1.png"),
-      gallery: [asset("images/p3/Book1.png"), asset("images/p3/Book2.png")],
-      gradient: "from-indigo-900 via-purple-800 to-pink-700",
-      link: "https://m7mdmstfa4422.github.io/Bookmark/",
-      github: "https://github.com/m7mdmstfa4422/Bookmark",
-      icons: [asset("images/webIcon/html.png"), asset("images/webIcon/bootstrap.png"), asset("images/webIcon/js.png")],
-    },
-
-    3: {
-      id: 3,
-      title: "Weather App",
-      subtitle: "Live Weather Forecast",
-      category: "JavaScript API",
-      description: "Real-time weather updates with a clean and intuitive interface",
-      year: "2024",
-      image: asset("images/p5/weather1.png"),
-      gallery: [asset("images/p5/weather1.png"), asset("images/p5/weather2.png")],
-      gradient: "from-indigo-900 via-purple-800 to-pink-700",
-      link: "https://m7mdmstfa4422.github.io/WeatherApi-V1.1.1/",
-      github: "https://github.com/m7mdmstfa4422/WeatherApi-V1.1.1",
-      icons: [asset("images/webIcon/html.png"), asset("images/webIcon/bootstrap.png"), asset("images/webIcon/js.png")],
-    },
-
-    4: {
-      id: 4,
-      title: "Yummy Foods",
-      subtitle: "Menu Design",
-      category: "JavaScript Oop & jQuery",
-      description: "A modern food ordering app with interactive menu and seamless user experience",
-      year: "2025",
-      image: asset("images/p4/yummy1.png"),
-      gallery: [asset("images/p4/yummy1.png"), asset("images/p4/yummy2.png"), asset("images/p4/yummy2.1.png"), asset("images/p4/yummy3.png"), asset("images/p4/yummy4.png")],
-      gradient: "from-indigo-900 via-purple-800 to-pink-700",
-      link: "https://m7mdmstfa4422.github.io/YummyFood/",
-      github: "https://github.com/m7mdmstfa4422/YummyFood",
-      icons: [asset("images/webIcon/html.png"), asset("images/webIcon/bootstrap.png"), asset("images/webIcon/js.png"), asset("images/webIcon/jquery.png")],
-
-    },
-
-    5: {
-      id: 5,
-      title: "Oop Game",
-      subtitle: "Interactive Apps",
-      category: "JavaScript Oop",
-      description: "A modular OOP-based game library",
-      year: "2025",
-      image: asset("images/p6/game1.png"),
-      gallery: [asset("images/p6/game1.png"), asset("images/p6/game2.png"), asset("images/p6/game3.png"), asset("images/p6/game4.png")],
-      gradient: "from-indigo-900 via-purple-800 to-pink-700",
-      link: "https://m7mdmstfa4422.github.io/GameOop/",
-      github: "https://github.com/m7mdmstfa4422/GameOop",
-      icons: [asset("images/webIcon/html.png"), asset("images/webIcon/tailwind.png"), asset("images/webIcon/js.png")],
-
-    },
-
-    6: {
-      id: 6,
-      title: "E-Commerce",
-      subtitle: "Online Store",
-      category: "Development",
-      description: "Full-featured e-commerce solutions",
-      year: "2025",
-      image: asset("images/p8/ecom3.png"),
-      gallery: [asset("images/p8/ecom3.png"), asset("images/p8/ecom1.png"), asset("images/p8/ecom4.png"), asset("images/p8/ecom5.png"), asset("images/p8/ecom7.png"), asset("images/p8/ecom8.png"), asset("images/p8/ecom9.png")],
-      gradient: "from-cyan-500 via-blue-600 to-cyan-700",
-      link: "https://m7mdmstfa4422.github.io/e-commerce_app/",
-      github: "https://github.com/m7mdmstfa4422/e-commerce_app",
-      icons: [asset("images/webIcon/html.png"), asset("images/webIcon/tailwind.png"), asset("images/webIcon/react.png")],
-
-    },
-
-    7: {
-      id: 7,
-      title: "Food App",
-      subtitle: "Menu & Ordering",
-      category: "React Vite",
-      description: "A modern food ordering app with interactive menu and seamless user experience",
-      year: "2025",
-      image: asset("mobile-app-design.png"),
-      gallery: [asset("images/p7/cover.png"), asset("images/p7/img1.png"), asset("images/p7/img2.png"), asset("images/p7/img3.png"), asset("images/p7/img4.png"), asset("images/p7/img5.png")],
-      video: asset("images/p7/VP7.mp4"),
-      gradient: "from-purple-600 via-pink-600 to-orange-500",
-      link: "https://m7mdmstfa4422.github.io/EgyMenu/",
-      github: "https://github.com/m7mdmstfa4422/EgyMenu/tree/main",
-      icons: [asset("images/webIcon/html.png"), asset("images/webIcon/tailwind.png"), asset("images/webIcon/react.png")],
-
-    },
-    8: {
-      id: 8,
-      title: "Burger Nest",
-      subtitle: "Menu & Ordering",
-      category: "React Vite + Backend",
-      description:
-        "A full-featured restaurant ordering platform where customers can create accounts, browse the menu, place orders, and track their experience, while administrators manage incoming orders through a dedicated dashboard.",
-      year: "2026",
-      image: asset("mobile-app-design.png"),
-      gallery: [
-        asset("images/p9/beg.png"),
-        asset("images/p9/beg2.png"),
-        asset("images/p9/beg3.png"),
-        asset("images/p9/beg4.png"),
-        asset("images/p9/beg5.png"),
-        asset("images/p9/beg6.png"),
-        asset("images/p9/beg7.png"), asset("images/p9/beg8.png"), asset("images/p9/beg9.png"),
-      ],
-      video: asset("images/p7/VP7.mp4"),
-      gradient: "from-purple-600 via-pink-600 to-orange-500",
-
-      link: "https://burgernestt.vercel.app/",
-
-      github: "https://github.com/m7mdmstfa4422/burger",
-
-      icons: [
-        asset("images/webIcon/html.png"),
-        asset("images/webIcon/tailwind.png"),
-        asset("images/webIcon/react.png"),
-      ],
-    },
-  };
-
-
+  // Scroll to top upon project change
   useEffect(() => {
-    const loadProject = async () => {
-      setIsLoading(true)
-      if (id && projectsData[id]) {
-        await new Promise(resolve => setTimeout(resolve, 800)) // Smooth loading transition
-        setProject(projectsData[id])
-      }
-      setIsLoading(false)
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [id]);
+
+  // Page title
+  useEffect(() => {
+    if (project?.title) {
+      document.title = `${project.title} — Case Study | Mohamed Mustafa`;
     }
-    loadProject()
-  }, [id])
-
-  // Page transitions and animations
-  const pageVariants = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -20 }
-  }
-
-  // Loading animation
-  if (isLoading) {
-    return (
-      <motion.div
-        className="flex items-center justify-center min-h-screen bg-white dark:bg-slate-950"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-      >
-        <div className="relative">
-          <motion.div
-            className="w-16 h-16 border-4 border-cyan-500/20 rounded-full"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-          />
-          <motion.div
-            className="absolute top-0 left-0 w-16 h-16 border-4 border-t-cyan-500 rounded-full"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-          />
-        </div>
-      </motion.div>
-    )
-  }
+  }, [project]);
 
   if (!project) {
     return (
-      <motion.div
-        className="flex items-center justify-center min-h-screen bg-white dark:bg-slate-950 text-cyan-600 dark:text-cyan-400"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-      >
-        Project not found
-      </motion.div>
-    )
+      <div className="min-h-screen bg-[#f7f8ff] dark:bg-[#0b1120] flex items-center justify-center p-6 text-slate-900 dark:text-slate-100 md:ml-20">
+        <div className="text-center space-y-4 max-w-md">
+          <span className="inline-block p-4 rounded-3xl bg-[#0968e5]/10 dark:bg-white/5 border border-[#0968e5]/20 dark:border-white/10 text-[#0968e5] dark:text-[#7ab3ff]">
+            <Sparkles className="w-8 h-8" />
+          </span>
+          <h2 className="text-2xl font-black">Project Not Found</h2>
+          <p className="text-sm text-slate-500 dark:text-slate-400">
+            The requested project could not be located in the portfolio archive.
+          </p>
+          <Link
+            to="/Allprojects"
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-[#091970] via-[#094dbf] to-[#0968e5] text-white font-semibold text-sm hover:scale-105 transition-transform shadow-lg shadow-[#0968e5]/25"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span>Browse All Projects</span>
+          </Link>
+        </div>
+      </div>
+    );
   }
 
-  const accentColor = project.accentColor || "#22d3ee"
-
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        className="relative bg-white dark:bg-slate-950 min-h-screen overflow-hidden transition-colors duration-300"
-        variants={pageVariants}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        transition={{ duration: 0.6, ease: "easeOut" }}
-      >
-        {/* Animated background elements */}
-        <motion.div
-          className="absolute inset-0 opacity-10 dark:opacity-30"
-          animate={{
-            backgroundPosition: ["0% 0%", "100% 100%"],
-            scale: [1, 1.1, 1]
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            repeatType: "reverse"
-          }}
+    <div className="relative min-h-screen bg-[#f7f8ff] dark:bg-[#0b1120] text-slate-900 dark:text-slate-100 overflow-x-hidden transition-colors duration-300">
+      {/* ------------------------------------------------------------- */}
+      {/* ATMOSPHERIC APPLE MESH GRADIENTS (LIGHT & DARK HARMONY)       */}
+      {/* ------------------------------------------------------------- */}
+      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
+        {/* Subtle 52px geometric grid */}
+        <div
+          className="absolute inset-0 opacity-40 dark:opacity-70"
           style={{
-            backgroundImage: `radial-gradient(circle at 50% 50%, ${accentColor}20, transparent 70%)`,
-            backgroundSize: "100% 100%",
+            backgroundImage:
+              "linear-gradient(rgba(9, 104, 229, 0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(9, 104, 229, 0.07) 1px, transparent 1px)",
+            backgroundSize: "52px 52px",
+            maskImage: "linear-gradient(to bottom, black 20%, transparent 95%)",
           }}
         />
 
-        {/* Floating particles */}
-        <div className="absolute inset-0 overflow-hidden">
-          {[...Array(20)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-1 h-1 bg-cyan-500/10 dark:bg-cyan-500/20 rounded-full"
-              animate={{
-                y: [-20, window.innerHeight + 20],
-                x: Math.random() * window.innerWidth,
-                opacity: [0, 1, 0]
-              }}
-              transition={{
-                duration: 10 + Math.random() * 10,
-                repeat: Infinity,
-                delay: Math.random() * 5,
-              }}
-            />
-          ))}
-        </div>
-
-        {/* Content with stagger animation */}
+        {/* Ambient Top Left Glow (#0968e5) */}
         <motion.div
-          className="relative z-10"
-          variants={{
-            animate: {
-              transition: {
-                staggerChildren: 0.1
-              }
-            }
+          animate={{
+            x: [0, 45, 0],
+            y: [0, -25, 0],
+            scale: [1, 1.12, 1],
           }}
-        >
-          {/* Development Section */}
-          <div className="md:ml-20 ">
+          transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-32 -left-20 w-[36rem] h-[36rem] rounded-full bg-gradient-to-br from-[#0968e5]/25 to-[#091970]/30 blur-3xl"
+        />
 
-            <ProjectContent project={project} />
+        {/* Ambient Right Glow (#091970 / #094dbf) */}
+        <motion.div
+          animate={{
+            x: [0, -40, 0],
+            scale: [1, 1.15, 1],
+          }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/4 -right-24 w-[38rem] h-[38rem] rounded-full bg-gradient-to-tl from-[#091970]/35 via-[#094dbf]/20 to-[#0968e5]/20 blur-3xl"
+        />
 
-            <Footer />
-          </div>
-        </motion.div>
-      </motion.div>
-    </AnimatePresence>
-  )
+        {/* Ambient Bottom Glow */}
+        <motion.div
+          animate={{
+            y: [0, -35, 0],
+            scale: [1, 1.08, 1],
+          }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -bottom-28 left-1/3 w-[32rem] h-[32rem] rounded-full bg-[#0968e5]/15 blur-3xl dark:bg-[#091970]/25"
+        />
+      </div>
+
+      {/* Main layout container with desktop sidebar clearance */}
+      <main className="relative z-10 md:ml-20">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={project.id}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -16 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+          >
+            <ProjectContent project={project} allProjects={projectsData} />
+          </motion.div>
+        </AnimatePresence>
+
+        <Footer />
+      </main>
+    </div>
+  );
 }
