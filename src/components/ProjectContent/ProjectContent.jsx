@@ -1,7 +1,7 @@
 "use client";
 /* eslint-disable no-unused-vars */
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ChevronLeft,
@@ -16,50 +16,31 @@ import {
   Globe,
   Share2,
   Sparkles,
-  Layers,
-  Cpu,
   Zap,
   Lock,
 } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-// Apple-signature spring curve & quintic ease
-const appleSpring = { type: "spring", stiffness: 380, damping: 30 };
-const appleEase = [0.16, 1, 0.3, 1];
-
-// Orchestrated Staggered Container Variants - 0.3s
+// Standard lightweight animation variants (Low CPU/GPU footprint)
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.3,
-      delayChildren: 0.1,
+      staggerChildren: 0.08,
+      delayChildren: 0.05,
     },
   },
 };
 
-// Cascading Child Item Variants
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 12 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.3,
+      duration: 0.25,
       ease: "easeOut",
-    },
-  },
-};
-
-// Bento Grid Sub-container Stagger
-const bentoContainerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.3,
-      delayChildren: 0.05,
     },
   },
 };
@@ -71,51 +52,70 @@ export default function ProjectContent({ project, allProjects = [] }) {
   const [copiedLink, setCopiedLink] = useState(false);
 
   // Gallery array fallback
-  const gallery = project?.gallery?.length
-    ? project.gallery
-    : project?.image
-      ? [project.image]
-      : ["/placeholder.svg"];
+  const gallery = useMemo(() => {
+    if (project?.gallery?.length) return project.gallery;
+    if (project?.image) return [project.image];
+    return ["/placeholder.svg"];
+  }, [project?.gallery, project?.image]);
 
   const currentImage = gallery[selectedImageIndex] || gallery[0];
-
-  // Set document title
-  useEffect(() => {
-    if (project?.title) {
-      document.title = `${project.title} — Case Study | Mohamed Mustafa`;
-    }
-  }, [project?.title]);
 
   // Reset selected image index when project changes
   useEffect(() => {
     setSelectedImageIndex(0);
   }, [project?.id]);
 
+  // Lock body scroll when lightbox is open (Mobile Safari safe)
+  useEffect(() => {
+    if (isLightboxOpen) {
+      const originalStyle = window.getComputedStyle(document.body).overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = originalStyle;
+      };
+    }
+  }, [isLightboxOpen]);
+
+  // Gallery navigation handlers
+  const handlePrevImage = useCallback(() => {
+    setSelectedImageIndex((i) => (i + gallery.length - 1) % gallery.length);
+  }, [gallery.length]);
+
+  const handleNextImage = useCallback(() => {
+    setSelectedImageIndex((i) => (i + 1) % gallery.length);
+  }, [gallery.length]);
+
   // Keyboard navigation for gallery & lightbox
   useEffect(() => {
     const onKeyDown = (event) => {
       if (event.key === "Escape") {
-        if (isLightboxOpen) setIsLightboxOpen(false);
-      }
-      if (event.key === "ArrowLeft") {
-        setSelectedImageIndex((i) => (i + gallery.length - 1) % gallery.length);
-      }
-      if (event.key === "ArrowRight") {
-        setSelectedImageIndex((i) => (i + 1) % gallery.length);
+        setIsLightboxOpen(false);
+      } else if (event.key === "ArrowLeft") {
+        handlePrevImage();
+      } else if (event.key === "ArrowRight") {
+        handleNextImage();
       }
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [gallery.length, isLightboxOpen]);
+  }, [handlePrevImage, handleNextImage]);
 
-  // Find previous and next project for bottom navigation
-  const currentIndex = allProjects.findIndex((p) => p.id === project?.id);
-  const prevProject =
-    currentIndex > 0 ? allProjects[currentIndex - 1] : allProjects[allProjects.length - 1];
-  const nextProject =
-    currentIndex >= 0 && currentIndex < allProjects.length - 1
-      ? allProjects[currentIndex + 1]
-      : allProjects[0];
+  // Find previous and next project for bottom navigation (Robust string matching)
+  const { prevProject, nextProject } = useMemo(() => {
+    if (!allProjects.length) return { prevProject: null, nextProject: null };
+    const currentIndex = allProjects.findIndex(
+      (p) => String(p.id) === String(project?.id)
+    );
+    const prev =
+      currentIndex > 0
+        ? allProjects[currentIndex - 1]
+        : allProjects[allProjects.length - 1];
+    const next =
+      currentIndex >= 0 && currentIndex < allProjects.length - 1
+        ? allProjects[currentIndex + 1]
+        : allProjects[0];
+    return { prevProject: prev, nextProject: next };
+  }, [allProjects, project?.id]);
 
   const handleShare = () => {
     const url = window.location.href;
@@ -126,16 +126,16 @@ export default function ProjectContent({ project, allProjects = [] }) {
     }
   };
 
-  const domainDisplay = project?.link
-    ? project.link.replace(/^https?:\/\//, "").replace(/\/$/, "")
-    : "mohamed-portfolio.local";
+  const domainDisplay = useMemo(() => {
+    if (!project?.link) return "mohamed-portfolio.local";
+    return project.link.replace(/^https?:\/\//, "").replace(/\/$/, "");
+  }, [project?.link]);
 
   return (
     <motion.div
       variants={containerVariants}
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+      animate="visible"
       className="relative max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-8 md:py-14 text-slate-900 dark:text-slate-100 font-sans"
     >
       {/* ------------------------------------------------------------- */}
@@ -152,12 +152,12 @@ export default function ProjectContent({ project, allProjects = [] }) {
               {project?.category}
             </span>
             {project?.year && (
-              <span className="px-4 py-1.5 rounded-full bg-white/80 dark:bg-[#091970]/30 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-white/10">
+              <span className="px-4 py-1.5 rounded-full bg-white/90 dark:bg-[#091970]/40 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-white/10">
                 {project.year}
               </span>
             )}
             {project?.role && (
-              <span className="px-4 py-1.5 rounded-full bg-white/80 dark:bg-[#091970]/30 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-white/10">
+              <span className="px-4 py-1.5 rounded-full bg-white/90 dark:bg-[#091970]/40 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-white/10">
                 {project.role}
               </span>
             )}
@@ -169,28 +169,28 @@ export default function ProjectContent({ project, allProjects = [] }) {
             )}
           </motion.div>
 
-          {/* Step 2: Giant Headline & Gradient Subtitle */}
+          {/* Step 2: Headline & Gradient Subtitle */}
           <motion.div variants={itemVariants} className="space-y-4">
-            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[1.05] text-slate-950 dark:text-white">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-[1.08] text-slate-950 dark:text-white">
               {project?.title}
             </h1>
 
             {project?.subtitle && (
-              <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight text-transparent bg-gradient-to-r from-[#0968e5] via-[#4592ff] to-[#091970] dark:from-[#3b8bfd] dark:via-[#7ab3ff] dark:to-cyan-300 bg-clip-text max-w-3xl mx-auto leading-snug">
+              <p className="text-lg sm:text-2xl md:text-3xl font-semibold tracking-tight text-transparent bg-gradient-to-r from-[#0968e5] via-[#4592ff] to-[#091970] dark:from-[#3b8bfd] dark:via-[#7ab3ff] dark:to-cyan-300 bg-clip-text max-w-3xl mx-auto leading-snug">
                 {project.subtitle}
               </p>
             )}
           </motion.div>
 
-          {/* Step 3: Comfortable Centered Description */}
+          {/* Step 3: Description */}
           <motion.p
             variants={itemVariants}
-            className="text-base sm:text-xl leading-relaxed text-slate-600 dark:text-slate-300 max-w-3xl mx-auto font-normal"
+            className="text-base sm:text-lg leading-relaxed text-slate-600 dark:text-slate-300 max-w-3xl mx-auto font-normal"
           >
             {project?.description}
           </motion.p>
 
-          {/* Step 4: Centered Action Buttons & Tech Icons Stack */}
+          {/* Step 4: Centered Action Buttons & Tech Icons */}
           <motion.div
             variants={itemVariants}
             className="flex flex-col items-center justify-center gap-6 pt-4"
@@ -199,38 +199,33 @@ export default function ProjectContent({ project, allProjects = [] }) {
             <div className="flex flex-wrap items-center justify-center gap-3.5">
               {/* Live Demo */}
               {project?.link && (
-                <motion.a
+                <a
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.96 }}
-                  className="relative group inline-flex items-center gap-2.5 px-8 py-4 rounded-full text-sm sm:text-base font-bold text-white shadow-xl shadow-[#091970]/50 hover:shadow-[#0968e5]/40 transition-all duration-300 overflow-hidden bg-gradient-to-r from-[#091970] via-[#083c9c] to-[#0968e5] hover:from-[#0b218f] hover:via-[#094bbd] hover:to-[#227bff] border border-[#0968e5]/40"
+                  className="relative group inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full text-sm sm:text-base font-bold text-white shadow-xl shadow-[#091970]/30 hover:shadow-[#0968e5]/40 transition-all duration-200 overflow-hidden bg-gradient-to-r from-[#091970] via-[#083c9c] to-[#0968e5] hover:scale-105 active:scale-95 border border-[#0968e5]/40"
                 >
-                  <span className="pointer-events-none absolute -inset-full bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 group-hover:translate-x-full transition-all duration-700 transform -skew-x-12" />
-                  <ExternalLink className="w-4 h-4 relative z-10 text-[#7ab3ff] group-hover:text-white transition-colors group-hover:rotate-12" />
+                  <ExternalLink className="w-4 h-4 relative z-10 text-[#7ab3ff] group-hover:text-white transition-colors" />
                   <span className="relative z-10">Live Demo</span>
-                </motion.a>
+                </a>
               )}
 
               {/* View Source (GitHub) */}
               {project?.github ? (
-                <motion.a
+                <a
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.96 }}
-                  className="relative group inline-flex items-center rounded-full p-[2px] bg-gradient-to-r from-[#0968e5] via-[#4592ff] to-[#091970] shadow-lg shadow-[#091970]/30 hover:shadow-[#0968e5]/30 transition-all duration-300"
+                  className="relative group inline-flex items-center rounded-full p-[2px] bg-gradient-to-r from-[#0968e5] via-[#4592ff] to-[#091970] shadow-lg shadow-[#091970]/20 hover:shadow-[#0968e5]/30 hover:scale-105 active:scale-95 transition-all duration-200"
                 >
-                  <span className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white dark:bg-[#050b2b] group-hover:bg-opacity-80 dark:group-hover:bg-opacity-70 transition-colors text-sm sm:text-base font-bold text-slate-800 dark:text-white">
-                    <Github className="w-4 h-4 text-[#0968e5] dark:text-[#3b8bfd] transition-transform group-hover:rotate-12" />
+                  <span className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white dark:bg-[#050b2b] group-hover:bg-opacity-80 dark:group-hover:bg-opacity-70 transition-colors text-sm sm:text-base font-bold text-slate-800 dark:text-white">
+                    <Github className="w-4 h-4 text-[#0968e5] dark:text-[#3b8bfd]" />
                     <span>View Source</span>
                   </span>
-                </motion.a>
+                </a>
               ) : (
                 <div
-                  className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-slate-100/80 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-slate-400 dark:text-slate-500 cursor-not-allowed select-none text-sm sm:text-base font-semibold backdrop-blur-md"
+                  className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-slate-100/90 dark:bg-white/[0.05] border border-slate-200 dark:border-white/10 text-slate-400 dark:text-slate-500 cursor-not-allowed select-none text-sm sm:text-base font-semibold"
                   title="Source code is private or confidential"
                 >
                   <Lock className="w-4 h-4 text-slate-400 dark:text-slate-500" />
@@ -242,15 +237,13 @@ export default function ProjectContent({ project, allProjects = [] }) {
               )}
 
               {/* Share Button */}
-              <motion.button
+              <button
                 type="button"
                 onClick={handleShare}
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.96 }}
-                className="relative group inline-flex items-center rounded-full p-[2px] bg-gradient-to-r from-[#0968e5]/50 via-blue-400/30 to-[#091970] shadow-xs hover:shadow-md hover:shadow-[#0968e5]/20 transition-all duration-300"
+                className="relative group inline-flex items-center rounded-full p-[2px] bg-gradient-to-r from-[#0968e5]/50 via-blue-400/30 to-[#091970] shadow-sm hover:shadow-md hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer"
                 title="Copy share link"
               >
-                <span className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white dark:bg-[#050b2b] group-hover:bg-opacity-80 dark:group-hover:bg-opacity-70 transition-colors text-sm font-semibold text-slate-700 dark:text-slate-200">
+                <span className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white dark:bg-[#050b2b] group-hover:bg-opacity-80 dark:group-hover:bg-opacity-70 transition-colors text-sm font-semibold text-slate-700 dark:text-slate-200">
                   {copiedLink ? (
                     <>
                       <CheckCircle2 className="w-4 h-4 text-emerald-400 animate-bounce" />
@@ -258,24 +251,30 @@ export default function ProjectContent({ project, allProjects = [] }) {
                     </>
                   ) : (
                     <>
-                      <Share2 className="w-4 h-4 text-[#0968e5] dark:text-[#3b8bfd] group-hover:scale-110 transition-transform" />
+                      <Share2 className="w-4 h-4 text-[#0968e5] dark:text-[#3b8bfd]" />
                       <span className="text-xs font-bold">Share</span>
                     </>
                   )}
                 </span>
-              </motion.button>
+              </button>
             </div>
 
             {/* Tech Stack Icons */}
             {project?.icons?.length ? (
-              <div className="flex items-center justify-center gap-2.5 pt-2">
+              <div className="flex items-center justify-center gap-2.5 pt-2 flex-wrap">
                 {project.icons.map((src, i) => (
                   <div
                     key={i}
-                    className="w-11 h-11 rounded-2xl bg-white/90 dark:bg-[#091970]/40 border border-slate-200/80 dark:border-[#0968e5]/20 p-2 flex items-center justify-center shadow-sm backdrop-blur-md hover:border-[#0968e5] hover:scale-110 transition-all"
+                    className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-white/90 dark:bg-[#091970]/40 border border-slate-200/80 dark:border-[#0968e5]/20 p-2 flex items-center justify-center shadow-sm hover:border-[#0968e5] hover:scale-110 transition-all"
                     title="Technology"
                   >
-                    <img src={src} alt="Tech" className="w-full h-full object-contain" />
+                    <img
+                      src={src}
+                      alt="Tech"
+                      className="w-full h-full object-contain"
+                      loading="lazy"
+                      decoding="async"
+                    />
                   </div>
                 ))}
               </div>
@@ -285,10 +284,10 @@ export default function ProjectContent({ project, allProjects = [] }) {
       </header>
 
       {/* ------------------------------------------------------------- */}
-      {/* 2. APPLE STUDIO DISPLAY SHOWCASE (STAGGERED REVEAL)           */}
+      {/* 2. APPLE STUDIO DISPLAY SHOWCASE                              */}
       {/* ------------------------------------------------------------- */}
       <motion.section variants={itemVariants} className="mb-14">
-        <div className="relative overflow-hidden rounded-[2rem] border border-white/80 bg-white/70 shadow-2xl shadow-[#091970]/[0.08] backdrop-blur-2xl dark:border-[#0968e5]/25 dark:bg-[#091970]/15 dark:shadow-black/60 p-3 sm:p-5 md:p-6 transition-colors">
+        <div className="relative overflow-hidden rounded-[2rem] border border-white/80 bg-white/90 shadow-2xl shadow-[#091970]/[0.08] backdrop-blur-none sm:backdrop-blur-xl dark:border-[#0968e5]/25 dark:bg-[#091970]/20 dark:shadow-black/60 p-3 sm:p-5 md:p-6 transition-colors">
           {/* macOS Safari Chrome Bar */}
           <div className="flex items-center justify-between pb-3.5 mb-3 border-b border-slate-200/80 dark:border-white/10 px-2">
             {/* Traffic light dots */}
@@ -309,28 +308,26 @@ export default function ProjectContent({ project, allProjects = [] }) {
               <span className="font-mono text-[11px]">
                 {selectedImageIndex + 1} / {gallery.length}
               </span>
-              <motion.button
+              <button
                 type="button"
                 onClick={() => setIsLightboxOpen(true)}
-                whileHover={{ scale: 1.08 }}
-                whileTap={{ scale: 0.94 }}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#0968e5]/10 hover:bg-[#0968e5]/20 border border-[#0968e5]/30 text-[#0968e5] dark:text-[#3b8bfd] transition-all font-semibold cursor-pointer shadow-xs"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#0968e5]/10 hover:bg-[#0968e5]/20 border border-[#0968e5]/30 text-[#0968e5] dark:text-[#3b8bfd] transition-all font-semibold cursor-pointer shadow-xs active:scale-95"
                 title="View Fullscreen"
               >
                 <Maximize2 className="w-3.5 h-3.5" />
                 <span className="hidden sm:inline">Expand</span>
-              </motion.button>
+              </button>
             </div>
           </div>
 
           {/* Uncropped Image Viewport Canvas */}
-          <div className="relative flex items-center justify-center min-h-[320px] sm:min-h-[440px] md:min-h-[520px] py-4 px-2 rounded-2xl bg-gradient-to-b from-[#0968e5]/5 via-white/70 to-slate-100/50 border border-slate-200/60 shadow-inner dark:from-[#091970]/40 dark:via-[#050b2b]/70 dark:to-[#091970]/40 dark:border-white/5 overflow-hidden">
-            {/* Ambient Glow behind active screenshot */}
+          <div className="relative flex items-center justify-center min-h-[260px] sm:min-h-[420px] md:min-h-[500px] py-3 px-2 rounded-2xl bg-gradient-to-b from-[#0968e5]/5 via-white/80 to-slate-100/60 border border-slate-200/60 shadow-inner dark:from-[#091970]/40 dark:via-[#050b2b]/80 dark:to-[#091970]/40 dark:border-white/5 overflow-hidden">
+            {/* Ambient Background Glow (Safe CSS radial without GPU blur thrashing) */}
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute inset-0 opacity-25 dark:opacity-35 blur-3xl transition-opacity"
+              className="pointer-events-none absolute inset-0 opacity-20 dark:opacity-30 transition-opacity"
               style={{
-                backgroundImage: `radial-gradient(circle at center, #0968e5, #091970 70%, transparent 85%)`,
+                backgroundImage: `radial-gradient(circle at center, rgba(9,104,229,0.35), rgba(9,25,112,0.2) 65%, transparent 85%)`,
               }}
             />
 
@@ -338,12 +335,14 @@ export default function ProjectContent({ project, allProjects = [] }) {
               <motion.img
                 key={currentImage}
                 src={currentImage}
-                alt={`${project?.title} preview ${selectedImageIndex + 1}`}
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.25 }}
-                className="max-h-[540px] w-auto h-auto max-w-full object-contain rounded-xl shadow-xl shadow-[#091970]/25 dark:shadow-black/60 cursor-zoom-in relative z-10"
+                alt={`${project?.title || "Project"} preview ${selectedImageIndex + 1}`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                decoding="async"
+                fetchPriority="high"
+                className="max-h-[500px] w-auto h-auto max-w-full object-contain rounded-xl shadow-xl shadow-[#091970]/20 dark:shadow-black/60 cursor-zoom-in relative z-10"
                 onClick={() => setIsLightboxOpen(true)}
               />
             </AnimatePresence>
@@ -351,36 +350,28 @@ export default function ProjectContent({ project, allProjects = [] }) {
             {/* Chevrons for gallery pagination */}
             {gallery.length > 1 && (
               <>
-                <motion.button
+                <button
                   type="button"
-                  onClick={() =>
-                    setSelectedImageIndex((i) => (i + gallery.length - 1) % gallery.length)
-                  }
-                  whileHover={{ scale: 1.15 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 grid h-11 w-11 place-items-center rounded-full bg-gradient-to-br from-white/95 to-slate-100/95 dark:from-[#091970]/95 dark:to-[#050b2b]/95 border border-white/80 dark:border-[#0968e5]/30 hover:border-[#0968e5] text-slate-700 dark:text-slate-200 shadow-xl backdrop-blur-md transition-all cursor-pointer"
+                  onClick={handlePrevImage}
+                  className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 grid h-10 w-10 sm:h-11 sm:w-11 place-items-center rounded-full bg-white/95 dark:bg-[#091970]/95 border border-slate-200 dark:border-[#0968e5]/30 hover:border-[#0968e5] text-slate-700 dark:text-slate-200 shadow-xl active:scale-90 transition-transform cursor-pointer"
                   aria-label="Previous screenshot"
                 >
                   <ChevronLeft className="w-5 h-5" />
-                </motion.button>
+                </button>
 
-                <motion.button
+                <button
                   type="button"
-                  onClick={() =>
-                    setSelectedImageIndex((i) => (i + 1) % gallery.length)
-                  }
-                  whileHover={{ scale: 1.15 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 grid h-11 w-11 place-items-center rounded-full bg-gradient-to-br from-white/95 to-slate-100/95 dark:from-[#091970]/95 dark:to-[#050b2b]/95 border border-white/80 dark:border-[#0968e5]/30 hover:border-[#0968e5] text-slate-700 dark:text-slate-200 shadow-xl backdrop-blur-md transition-all cursor-pointer"
+                  onClick={handleNextImage}
+                  className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 grid h-10 w-10 sm:h-11 sm:w-11 place-items-center rounded-full bg-white/95 dark:bg-[#091970]/95 border border-slate-200 dark:border-[#0968e5]/30 hover:border-[#0968e5] text-slate-700 dark:text-slate-200 shadow-xl active:scale-90 transition-transform cursor-pointer"
                   aria-label="Next screenshot"
                 >
                   <ChevronRight className="w-5 h-5" />
-                </motion.button>
+                </button>
               </>
             )}
           </div>
 
-          {/* Thumbnails Strip */}
+          {/* Thumbnails Strip (VRAM optimized with lazy decoding) */}
           {gallery.length > 1 && (
             <div className="mt-4 flex items-center justify-center gap-2.5 overflow-x-auto py-2 px-1">
               {gallery.map((img, idx) => {
@@ -393,12 +384,14 @@ export default function ProjectContent({ project, allProjects = [] }) {
                     className={`relative w-16 sm:w-20 h-12 sm:h-14 rounded-xl overflow-hidden border transition-all shrink-0 p-0.5 cursor-pointer ${
                       isActive
                         ? "border-[#0968e5] ring-2 ring-[#0968e5]/40 scale-105 opacity-100 shadow-md shadow-[#0968e5]/25"
-                        : "border-slate-200 dark:border-white/10 opacity-55 hover:opacity-100"
+                        : "border-slate-200 dark:border-white/10 opacity-60 hover:opacity-100"
                     }`}
                   >
                     <img
                       src={img}
                       alt=""
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-contain rounded-lg bg-slate-100 dark:bg-[#091970]/40"
                     />
                   </button>
@@ -410,7 +403,7 @@ export default function ProjectContent({ project, allProjects = [] }) {
 
         {/* Video Showcase (if available) */}
         {project?.video && (
-          <div className="mt-8 rounded-[2rem] border border-white/80 bg-white/70 shadow-xl shadow-[#091970]/[0.05] backdrop-blur-xl dark:border-[#0968e5]/20 dark:bg-[#091970]/15 p-4 sm:p-6">
+          <div className="mt-8 rounded-[2rem] border border-white/80 bg-white/90 shadow-xl shadow-[#091970]/[0.05] dark:border-[#0968e5]/20 dark:bg-[#091970]/20 p-4 sm:p-6">
             <div className="flex items-center gap-2 mb-4">
               <Zap className="w-4 h-4 text-[#0968e5]" />
               <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white">
@@ -421,6 +414,8 @@ export default function ProjectContent({ project, allProjects = [] }) {
               <video
                 src={project.video}
                 controls
+                playsInline
+                preload="metadata"
                 className="w-full max-h-[460px] object-contain mx-auto"
               />
             </div>
@@ -429,7 +424,7 @@ export default function ProjectContent({ project, allProjects = [] }) {
       </motion.section>
 
       {/* ------------------------------------------------------------- */}
-      {/* 3. APPLE BENTO SPECIFICATIONS (STAGGERED REVEAL)              */}
+      {/* 3. APPLE BENTO SPECIFICATIONS                                 */}
       {/* ------------------------------------------------------------- */}
       <motion.section variants={itemVariants} className="mb-14 space-y-6">
         <div className="flex items-center gap-2">
@@ -440,19 +435,11 @@ export default function ProjectContent({ project, allProjects = [] }) {
         </div>
 
         {/* Bento Cards Sub-Grid */}
-        <motion.div
-          variants={bentoContainerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           {project?.features?.map((item, idx) => (
-            <motion.div
+            <div
               key={idx}
-              variants={itemVariants}
-              whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className="flex items-start gap-4 p-5 sm:p-6 rounded-[1.75rem] border border-white/80 bg-white/70 shadow-lg shadow-[#091970]/[0.03] backdrop-blur-xl dark:border-[#0968e5]/15 dark:bg-[#091970]/20 hover:border-[#0968e5]/40 transition-colors"
+              className="flex items-start gap-4 p-5 sm:p-6 rounded-[1.75rem] border border-white/80 bg-white/90 shadow-sm dark:border-[#0968e5]/15 dark:bg-[#091970]/20 hover:border-[#0968e5]/40 transition-colors"
             >
               <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-[#0968e5]/10 text-[#0968e5] dark:text-[#3b8bfd] border border-[#0968e5]/20 shadow-xs">
                 <CheckCircle2 className="w-5 h-5" />
@@ -465,16 +452,13 @@ export default function ProjectContent({ project, allProjects = [] }) {
                   {item.desc}
                 </p>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Bento Strip: Tech Stack Tags */}
         {project?.tags?.length ? (
-          <motion.div
-            variants={itemVariants}
-            className="p-6 rounded-[1.75rem] border border-white/80 bg-white/70 shadow-lg shadow-[#091970]/[0.03] backdrop-blur-xl dark:border-[#0968e5]/15 dark:bg-[#091970]/20"
-          >
+          <div className="p-5 sm:p-6 rounded-[1.75rem] border border-white/80 bg-white/90 shadow-sm dark:border-[#0968e5]/15 dark:bg-[#091970]/20">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
               Technologies &amp; Libraries
             </h3>
@@ -488,24 +472,21 @@ export default function ProjectContent({ project, allProjects = [] }) {
                 </span>
               ))}
             </div>
-          </motion.div>
+          </div>
         ) : null}
       </motion.section>
 
       {/* ------------------------------------------------------------- */}
-      {/* 4. BOTTOM NEXT / PREV PROJECT EXPLORER (STAGGERED REVEAL)     */}
+      {/* 4. BOTTOM NEXT / PREV PROJECT EXPLORER                        */}
       {/* ------------------------------------------------------------- */}
       <motion.footer variants={itemVariants} className="pt-10 border-t border-slate-200/80 dark:border-white/10">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           {prevProject ? (
-            <motion.button
+            <button
               type="button"
               onClick={() => navigate(`/projects/${prevProject.id}`)}
-              whileHover={{ y: -3, scale: 1.01 }}
-              whileTap={{ scale: 0.98 }}
-              className="group relative flex items-center justify-between p-5 rounded-2xl border border-white/80 bg-white/70 hover:bg-white dark:border-[#0968e5]/15 dark:bg-[#091970]/25 dark:hover:bg-[#091970]/40 transition-all text-left shadow-md hover:shadow-xl hover:shadow-[#091970]/10 dark:hover:shadow-[#0968e5]/10 overflow-hidden cursor-pointer"
+              className="group relative flex items-center justify-between p-5 rounded-2xl border border-white/80 bg-white/90 hover:bg-white dark:border-[#0968e5]/15 dark:bg-[#091970]/25 dark:hover:bg-[#091970]/40 transition-all text-left shadow-sm hover:shadow-md overflow-hidden cursor-pointer active:scale-98"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-[#0968e5]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="flex items-center gap-3 relative z-10">
                 <span className="grid h-10 w-10 place-items-center rounded-xl bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 group-hover:bg-[#0968e5] group-hover:text-white transition-all">
                   <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
@@ -519,18 +500,15 @@ export default function ProjectContent({ project, allProjects = [] }) {
                   </p>
                 </div>
               </div>
-            </motion.button>
+            </button>
           ) : <div />}
 
           {nextProject ? (
-            <motion.button
+            <button
               type="button"
               onClick={() => navigate(`/projects/${nextProject.id}`)}
-              whileHover={{ y: -3, scale: 1.01 }}
-              whileTap={{ scale: 0.98 }}
-              className="group relative flex items-center justify-between p-5 rounded-2xl border border-white/80 bg-white/70 hover:bg-white dark:border-[#0968e5]/15 dark:bg-[#091970]/25 dark:hover:bg-[#091970]/40 transition-all text-right shadow-md hover:shadow-xl hover:shadow-[#091970]/10 dark:hover:shadow-[#0968e5]/10 overflow-hidden cursor-pointer"
+              className="group relative flex items-center justify-between p-5 rounded-2xl border border-white/80 bg-white/90 hover:bg-white dark:border-[#0968e5]/15 dark:bg-[#091970]/25 dark:hover:bg-[#091970]/40 transition-all text-right shadow-sm hover:shadow-md overflow-hidden cursor-pointer active:scale-98"
             >
-              <div className="absolute inset-0 bg-gradient-to-l from-[#0968e5]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="flex items-center justify-end gap-3 w-full relative z-10">
                 <div>
                   <span className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
@@ -544,21 +522,22 @@ export default function ProjectContent({ project, allProjects = [] }) {
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </span>
               </div>
-            </motion.button>
+            </button>
           ) : <div />}
         </div>
       </motion.footer>
 
       {/* ------------------------------------------------------------- */}
-      {/* 5. VISIONOS FULLSCREEN LIGHTBOX MODAL                         */}
+      {/* 5. FULLSCREEN LIGHTBOX MODAL (SAFE BACKDROP & SCROLL LOCK)     */}
       {/* ------------------------------------------------------------- */}
       <AnimatePresence>
         {isLightboxOpen && (
           <motion.div
-            className="fixed inset-0 z-[100] flex flex-col justify-between p-4 sm:p-6 backdrop-blur-2xl"
+            className="fixed inset-0 z-[100] flex flex-col justify-between p-4 sm:p-6 bg-slate-950/90 backdrop-blur-sm sm:backdrop-blur-md"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
             onClick={() => setIsLightboxOpen(false)}
           >
             {/* Top Lightbox bar */}
@@ -588,25 +567,20 @@ export default function ProjectContent({ project, allProjects = [] }) {
               className="flex-1 flex items-center justify-center p-2 relative"
               onClick={(e) => e.stopPropagation()}
             >
-              <motion.img
+              <img
                 key={currentImage}
                 src={currentImage}
                 alt={project?.title}
-                initial={{ scale: 0.95, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.95, opacity: 0 }}
-                transition={{ duration: 0.2 }}
-                className="max-h-[82vh] max-w-full object-contain rounded-2xl shadow-2xl"
+                decoding="async"
+                className="max-h-[80vh] max-w-full object-contain rounded-2xl shadow-2xl"
               />
 
               {gallery.length > 1 && (
                 <>
                   <button
                     type="button"
-                    onClick={() =>
-                      setSelectedImageIndex((i) => (i + gallery.length - 1) % gallery.length)
-                    }
-                    className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 grid h-12 w-12 place-items-center rounded-full bg-white/10 hover:bg-[#0968e5]/30 text-white backdrop-blur-md transition-transform active:scale-90 cursor-pointer"
+                    onClick={handlePrevImage}
+                    className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 grid h-12 w-12 place-items-center rounded-full bg-white/15 hover:bg-[#0968e5]/40 text-white transition-transform active:scale-90 cursor-pointer"
                     aria-label="Previous image"
                   >
                     <ChevronLeft className="w-6 h-6" />
@@ -614,10 +588,8 @@ export default function ProjectContent({ project, allProjects = [] }) {
 
                   <button
                     type="button"
-                    onClick={() =>
-                      setSelectedImageIndex((i) => (i + 1) % gallery.length)
-                    }
-                    className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 grid h-12 w-12 place-items-center rounded-full bg-white/10 hover:bg-[#0968e5]/30 text-white backdrop-blur-md transition-transform active:scale-90 cursor-pointer"
+                    onClick={handleNextImage}
+                    className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 grid h-12 w-12 place-items-center rounded-full bg-white/15 hover:bg-[#0968e5]/40 text-white transition-transform active:scale-90 cursor-pointer"
                     aria-label="Next image"
                   >
                     <ChevronRight className="w-6 h-6" />

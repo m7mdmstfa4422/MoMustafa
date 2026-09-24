@@ -222,16 +222,7 @@ export default function Projects() {
           variants={revealVariants}
           className="text-center pt-6 flex flex-wrap items-center justify-center gap-4"
         >
-          {filteredProjects.length > 6 && (
-            <button
-              type="button"
-              onClick={() => setShowAll(!showAll)}
-              className="px-7 py-3.5 rounded-2xl bg-white dark:bg-white/10 text-slate-800 dark:text-white border border-slate-200 dark:border-white/15 font-bold text-sm shadow-xs hover:bg-slate-50 dark:hover:bg-white/15 hover:scale-105 active:scale-95 transition-all cursor-pointer"
-            >
-              {showAll ? "Show Less" : `View More (${filteredProjects.length} Projects)`}
-            </button>
-          )}
-
+          
           <Link
             to="/Allprojects"
             className="relative group inline-flex items-center gap-2.5 px-8 py-3.5 rounded-2xl bg-gradient-to-r from-[#091970] via-[#094dbf] to-[#0968e5] hover:from-[#0968e5] hover:via-[#094dbf] hover:to-[#091970] text-white font-bold text-sm shadow-xl shadow-[#0968e5]/30 hover:shadow-[#0968e5]/50 hover:scale-105 active:scale-95 transition-all duration-300 overflow-hidden cursor-pointer"
