@@ -3,8 +3,8 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/png" href="./public/images/icon.png" />
-  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/png" href="%BASE_URL%images/icon.png" />
+  <link rel="manifest" href="%BASE_URL%manifest.json">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#1e293b">
@@ -12,7 +12,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="MoMustafa">
   <meta name="application-name" content="MoMustafa" />
-  <link rel="apple-touch-icon" href="./public/images/icon.png" />
+  <link rel="apple-touch-icon" href="%BASE_URL%images/icon.png" />
   <!-- Meta Description -->
   <meta name="description"
     content="Mohamed Mustafa | Portfolio - Full Stack Developer specializing in React.js, Node.js, and modern web technologies. Explore my innovative projects and creative solutions.">
@@ -20,8 +20,8 @@
   <!-- Open Graph -->
   <meta property="og:title" content="Mohamed Mustafa | Portfolio">
   <meta property="og:description" content="Creative frontend developer crafting engaging web experiences.">
-  <meta property="og:image" content="/og-image.png">
-  <meta property="og:url" content="https://mohamedmustafa.dev">
+  <meta property="og:image" content="%BASE_URL%images/icon.png">
+  <meta property="og:url" content="https://m7mdmstfa4422.github.io/MoMustafa/">
   <meta property="og:type" content="website">
 
   <!-- Twitter -->
@@ -49,7 +49,7 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').then((registration) => {
+        navigator.serviceWorker.register('%BASE_URL%sw.js').then((registration) => {
           console.log('Service Worker registered successfully:', registration);
         }).catch((error) => {
           console.log('Service Worker registration failed:', error);

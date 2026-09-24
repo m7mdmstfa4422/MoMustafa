@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Mohamed Mustafa | Portfolio</title>
+  <script type="text/javascript">
+    // Single Page Apps for GitHub Pages
+    // Redirects all 404 paths to the hash router base
+    (function() {
+      var pathSegmentsToKeep = 1; // repository sub-path /MoMustafa/
+      var l = window.location;
+      var segments = l.pathname.split('/').filter(Boolean);
+      var repoBase = segments.length > 0 ? '/' + segments[0] : '';
+      var routePath = '/' + segments.slice(pathSegmentsToKeep).join('/');
+      if (routePath === '/') routePath = '';
+      var query = l.search ? l.search : '';
+      var hash = l.hash ? l.hash : '';
+
+      // Redirect to repo base with hash route
+      var target = (repoBase || '') + '/#' + (routePath ? routePath : '/') + query + hash;
+      l.replace(target);
+    })();
+  </script>
+</head>
+<body>
+  <p>Redirecting to <a href="/MoMustafa/">Mohamed Mustafa Portfolio</a>...</p>
+</body>
+</html>

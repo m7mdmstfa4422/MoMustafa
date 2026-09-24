@@ -27,99 +27,99 @@ const TECH_STACK = [
     id: "nodejs",
     name: "Node.js",
     category: "backend",
-    role: "Backend Runtime & APIs",
+    role: "Backend Runtime",
     logo: "nodejs.png",
-    badge: "Backend Core",
+    badge: "Backend",
     description: "Event-driven runtime for scalable REST APIs, custom middleware, and authentication.",
-    tags: ["Express.js", "REST APIs", "JWT Auth", "Middleware"],
+    tags: ["Express.js", "REST APIs", "JWT Auth"],
     icon: Server,
   },
   {
     id: "mongodb",
     name: "MongoDB",
     category: "backend",
-    role: "NoSQL Document Database",
+    role: "NoSQL Database",
     logo: "mongobd.png",
     badge: "Database",
     description: "Schema design, Mongoose ODM modeling, aggregation pipelines, and secure storage.",
-    tags: ["Mongoose ODM", "Data Modeling", "Aggregations", "CRUD"],
+    tags: ["Mongoose ODM", "Data Modeling", "CRUD"],
     icon: Database,
   },
   {
     id: "rest-api",
     name: "REST APIs",
     category: "backend",
-    role: "Client-Server Architecture",
+    role: "Networking",
     logo: "api.png",
-    badge: "Networking",
+    badge: "APIs",
     description: "Seamless HTTP/HTTPS protocols, JSON serialization, and robust error handling.",
-    tags: ["Axios / Fetch", "JWT Security", "JSON Payload", "Status Codes"],
+    tags: ["Axios / Fetch", "JWT Security", "JSON"],
     icon: Workflow,
   },
   {
     id: "react",
-    name: "React.js (v19)",
+    name: "React.js",
     category: "frontend",
-    role: "Modern Reactive UI Engine",
+    role: "UI Engine",
     logo: "react.png",
-    badge: "UI Engine",
+    badge: "Frontend",
     description: "Component architecture, custom hooks, context management, and fast Virtual DOM rendering.",
-    tags: ["Hooks & Context", "Component System", "React Router", "State"],
+    tags: ["Hooks & Context", "React Router", "State"],
     icon: Cpu,
   },
   {
     id: "javascript",
-    name: "JavaScript (ES6+)",
+    name: "JavaScript",
     category: "frontend",
-    role: "Core Logic & Async Programming",
+    role: "Core Logic",
     logo: "js.png",
-    badge: "Core Logic",
+    badge: "Language",
     description: "Modern ECMAScript standards, asynchronous workflows, DOM APIs, and OOP patterns.",
-    tags: ["ES6+ Syntax", "Async / Await", "DOM APIs", "OOP"],
+    tags: ["ES6+ Syntax", "Async / Await", "OOP"],
     icon: Code2,
   },
   {
     id: "tailwind",
     name: "Tailwind CSS",
     category: "frontend",
-    role: "Design Token Systems",
+    role: "Design System",
     logo: "tailwind.png",
-    badge: "Design Tokens",
+    badge: "Styling",
     description: "Utility-first design tokens, responsive breakpoints, and dark mode theming.",
-    tags: ["Responsive Grids", "Design Tokens", "Dark Mode", "Micro-interactions"],
+    tags: ["Responsive Grids", "Design Tokens", "Dark Mode"],
     icon: Sparkles,
   },
   {
     id: "html5",
     name: "HTML5",
     category: "frontend",
-    role: "Semantic Web & Accessibility",
+    role: "Semantic Web",
     logo: "html.png",
     badge: "Structure",
     description: "Accessible structures, strict SEO standards, form validation, and WCAG compliance.",
-    tags: ["Semantic Markup", "WCAG a11y", "SEO", "Validation"],
+    tags: ["Semantic Markup", "WCAG a11y", "SEO"],
     icon: Globe,
   },
   {
     id: "css3",
-    name: "CSS3 & Animations",
+    name: "CSS3",
     category: "frontend",
-    role: "Fluid Layouts & Dynamics",
+    role: "Styling & Motion",
     logo: "css.png",
     badge: "Visuals",
     description: "CSS Grid and Flexbox layouts, fluid scaling, keyframe physics, and transitions.",
-    tags: ["CSS Grid & Flex", "Keyframes", "Glassmorphism", "Responsive"],
+    tags: ["CSS Grid & Flex", "Keyframes", "Responsive"],
     icon: Monitor,
   },
   {
     id: "bootstrap",
     name: "Bootstrap UI",
     category: "frontend",
-    role: "Rapid UI Prototyping",
+    role: "UI Framework",
     logo: "bootstrap.png",
     badge: "UI Kit",
     description: "12-column grid systems, prebuilt components, and rapid responsive interfaces.",
-    tags: ["12-Col Grid", "Modals", "Responsive Utilities"],
+    tags: ["12-Col Grid", "Modals", "Responsive"],
     icon: Layers,
   },
 ];
@@ -130,22 +130,22 @@ const TECH_STACK = [
 const CERTIFICATES = [
   {
     id: "node-2026",
-    title: "Backend Development with Node.js & Express",
-    issuer: "Professional Backend Engineering Academy",
+    title: "Backend Development with Node.js",
+    issuer: "Backend Engineering Academy",
     year: "2026",
     badge: "Featured 2026",
     isFeatured: true,
     description: "Node.js server architecture, Express.js REST APIs, MongoDB integration, and JWT auth.",
     icon: Server,
     tint: "from-[#091970] via-[#094dbf] to-[#0968e5]",
-    competencies: ["Node.js", "Express.js", "MongoDB", "JWT Security", "REST APIs"],
+    competencies: ["Node.js", "Express.js", "MongoDB", "JWT Security"],
   },
   {
     id: "bachelor-2024",
-    title: "Bachelor Degree in Computer Science",
-    issuer: "Higher Future Institute for Specialized Technological Studies",
+    title: "Bachelor in Computer Science",
+    issuer: "Higher Future Institute for Specialized Studies",
     year: "2024",
-    badge: "Degree Conferred",
+    badge: "Degree",
     isFeatured: false,
     description: "Four-year curriculum in algorithms, data structures, OOP, databases, and software design.",
     icon: GraduationCap,
@@ -166,7 +166,7 @@ const CERTIFICATES = [
   },
   {
     id: "iti-2024",
-    title: "Artificial Intelligence Foundations",
+    title: "AI Foundations",
     issuer: "Information Technology Institute (ITI)",
     year: "2024",
     badge: "Certified",
@@ -174,11 +174,11 @@ const CERTIFICATES = [
     description: "Foundations of machine learning, neural network concepts, and data-driven algorithms.",
     icon: Award,
     tint: "from-amber-400 to-orange-500",
-    competencies: ["Machine Learning", "Neural Nets", "Python", "Data Analysis"],
+    competencies: ["Machine Learning", "Neural Nets", "Python"],
   },
   {
     id: "gdsc-2022",
-    title: "Advanced Web Development Certificate",
+    title: "Advanced Web Development",
     issuer: "Google Developer Student Clubs (GDSC)",
     year: "2022",
     badge: "Certified",
@@ -186,7 +186,7 @@ const CERTIFICATES = [
     description: "Progressive web apps, modern responsive layouts, web standards, and developer workflows.",
     icon: Code2,
     tint: "from-cyan-500 to-blue-500",
-    competencies: ["Modern JS", "Responsive Design", "Git & GitHub", "PWA"],
+    competencies: ["Modern JS", "Responsive Design", "Git & GitHub"],
   },
 ];
 
@@ -196,7 +196,7 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.4, // تم التعديل إلى 0.4 ثانية
+      staggerChildren: 0.15,
       delayChildren: 0.05,
     },
   },
@@ -208,7 +208,7 @@ const revealVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.4, // تم التعديل إلى 0.4 ثانية
+      duration: 0.4,
       ease: [0.16, 1, 0.3, 1],
     },
   },
@@ -231,7 +231,7 @@ export default function StatsSection() {
       ref={sectionRef}
       id="skills"
       aria-label="Skills & Qualifications"
-      className="relative isolate overflow-hidden bg-[#f7f8ff] px-3 sm:px-3 md:px-3  text-slate-900 dark:bg-[#0b1120] dark:text-slate-100 transition-colors duration-300"
+      className="relative isolate overflow-hidden bg-[#f7f8ff] px-2 sm:px-4 md:px-8 py-5 md:py-5 text-slate-900 dark:bg-[#0b1120] dark:text-slate-100 transition-colors duration-300"
     >
       {/* Ambient background glows */}
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
@@ -253,32 +253,32 @@ export default function StatsSection() {
         whileInView="visible"
         viewport={{ once: true, amount: 0.15 }}
         variants={containerVariants}
-        className="mx-auto max-w-5xl space-y-9"
+        className="mx-auto max-w-5xl space-y-6 md:space-y-8"
       >
-        {/* SECTION HEADER (ENLARGED & CONCISE) */}
-        <motion.div variants={revealVariants} className="text-center py-6 max-w-2xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#0968e5]/30 bg-[#0968e5]/10 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-[#091970] dark:text-[#7ab3ff] backdrop-blur-md">
-            <Sparkles className="w-3.5 h-3.5 text-[#0968e5]" />
+        {/* SECTION HEADER */}
+        <motion.div variants={revealVariants} className="text-center max-w-2xl mx-auto space-y-2">
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-[#0968e5]/30 bg-[#0968e5]/10 px-3 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#091970] dark:text-[#7ab3ff] backdrop-blur-md">
+            <Sparkles className="w-3 h-3 text-[#0968e5]" />
             <span>Technical Stack &amp; Credentials</span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
             Skills &amp; Qualifications
           </h2>
 
-          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-xl mx-auto leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-xl mx-auto leading-relaxed">
             Full-stack engineering: modern React client interfaces, scalable Node.js servers, and robust MongoDB databases.
           </p>
         </motion.div>
 
-        {/* FILTER TABS SWITCHER */}
+        {/* FILTER TABS SWITCHER (COMPACT & SLIM) */}
         <motion.div variants={revealVariants} className="flex justify-center">
-          <div className="inline-flex flex-wrap items-center justify-center p-1.5 rounded-2xl border border-white/80 bg-white/75 shadow-md shadow-[#091970]/[0.04] backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.045] gap-1.5">
+          <div className="inline-flex flex-wrap items-center justify-center p-1 rounded-xl border border-white/80 bg-white/75 shadow-sm shadow-[#091970]/[0.04] backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.045] gap-1">
             {[
               { id: "all", label: "All Stack", count: TECH_STACK.length, icon: Layers },
-              { id: "backend", label: "Backend & DB", count: 3, icon: Server },
+              { id: "backend", label: "Backend", count: 3, icon: Server },
               { id: "frontend", label: "Frontend", count: 6, icon: Code2 },
-              { id: "certificates", label: "Certifications", count: CERTIFICATES.length, icon: GraduationCap },
+              { id: "certificates", label: "Certs", count: CERTIFICATES.length, icon: GraduationCap },
             ].map(({ id, label, count, icon: Icon }) => {
               const isActive = activeFilter === id;
               return (
@@ -286,7 +286,7 @@ export default function StatsSection() {
                   key={id}
                   type="button"
                   onClick={() => setActiveFilter(id)}
-                  className={`relative flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs sm:text-sm font-bold transition-all cursor-pointer outline-none ${
+                  className={`relative flex items-center gap-1 sm:gap-1.5 rounded-lg px-2.5 sm:px-3.5 py-1.5 text-[11px] sm:text-xs font-bold transition-all cursor-pointer outline-none ${
                     isActive
                       ? "text-white shadow-sm shadow-[#0968e5]/25"
                       : "text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white hover:bg-white/60 dark:hover:bg-white/5"
@@ -295,14 +295,14 @@ export default function StatsSection() {
                   {isActive && (
                     <motion.span
                       layoutId="activeFilterPill"
-                      className="absolute inset-0 -z-10 rounded-xl bg-gradient-to-r from-[#091970] via-[#094dbf] to-[#0968e5]"
+                      className="absolute inset-0 -z-10 rounded-lg bg-gradient-to-r from-[#091970] via-[#094dbf] to-[#0968e5]"
                       transition={{ type: "spring", stiffness: 400, damping: 30 }}
                     />
                   )}
-                  <Icon className="h-4 w-4" />
+                  <Icon className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
                   <span>{label}</span>
                   <span
-                    className={`rounded-full px-2 py-0.5 text-[11px] font-mono font-bold ${
+                    className={`rounded-full px-1.5 py-0.2 text-[9px] sm:text-[10px] font-mono font-bold ${
                       isActive ? "bg-white/20 text-white" : "bg-slate-200/80 text-slate-700 dark:bg-white/10 dark:text-slate-300"
                     }`}
                   >
@@ -317,24 +317,24 @@ export default function StatsSection() {
         {/* DYNAMIC CONTENT */}
         <AnimatePresence mode="wait">
           {activeFilter !== "certificates" ? (
-            /* 1. TECH CARDS */
+            /* 1. TECH CARDS: 3 COLUMNS ON ALL SCREENS (MOBILE & DESKTOP) */
             <motion.div
               key={activeFilter}
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+              className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-5"
             >
               {filteredSkills.map((skill) => (
                 <div
                   key={skill.id}
-                  className="group relative flex flex-col justify-between rounded-2xl border border-white/80 bg-white/75 p-5 shadow-sm shadow-[#091970]/[0.03] backdrop-blur-xl transition-all duration-200 hover:border-[#0968e5]/40 hover:shadow-md hover:shadow-[#0968e5]/10 dark:border-white/10 dark:bg-white/[0.045]"
+                  className="group relative flex flex-col justify-between rounded-xl sm:rounded-2xl border border-white/80 bg-white/75 p-2 sm:p-4 md:p-5 shadow-xs shadow-[#091970]/[0.03] backdrop-blur-xl transition-all duration-200 hover:border-[#0968e5]/40 hover:shadow-md dark:border-white/10 dark:bg-white/[0.045] overflow-hidden"
                 >
                   <div>
-                    {/* Header: Logo + Category Badge */}
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl border border-slate-200/80 bg-white p-2.5 shadow-xs dark:border-white/10 dark:bg-slate-900 group-hover:scale-105 transition-transform duration-200">
+                    {/* Header: Logo + Badge */}
+                    <div className="flex items-center sm:items-start justify-between gap-1">
+                      <div className="grid h-8 w-8 sm:h-11 sm:w-11 shrink-0 place-items-center rounded-lg sm:rounded-xl border border-slate-200/80 bg-white p-1 sm:p-2 shadow-xs dark:border-white/10 dark:bg-slate-900 group-hover:scale-105 transition-transform duration-200">
                         <img
                           src={asset(`images/webIcon/${skill.logo}`)}
                           alt={skill.name}
@@ -344,20 +344,19 @@ export default function StatsSection() {
                           }}
                         />
                       </div>
-                      <span className="rounded-full border border-[#0968e5]/20 bg-[#0968e5]/10 px-3 py-1 text-xs font-bold text-[#091970] dark:text-[#7ab3ff]">
+                      <span className="hidden sm:inline-block rounded-full border border-[#0968e5]/20 bg-[#0968e5]/10 px-2 py-0.5 text-[10px] font-bold text-[#091970] dark:text-[#7ab3ff]">
                         {skill.badge}
                       </span>
                     </div>
 
                     {/* Title & Role */}
-                    <div className="mt-4">
-                      <h3 className="text-lg font-black text-slate-900 dark:text-white">
+                    <div className="mt-2 sm:mt-3.5">
+                      <h3 className="text-xs sm:text-base md:text-lg font-black text-slate-900 dark:text-white truncate">
                         {skill.name}
                       </h3>
-                      <p className="text-xs sm:text-sm font-semibold text-[#0968e5] dark:text-[#7ab3ff]">
+                      <p className="text-[10px] sm:text-xs font-semibold text-[#0968e5] dark:text-[#7ab3ff] truncate">
                         {skill.role}
                       </p>
-                     
                     </div>
                   </div>
 
@@ -374,7 +373,7 @@ export default function StatsSection() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
-              className="grid grid-cols-1 md:grid-cols-2 gap-4.5"
+              className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4"
             >
               {CERTIFICATES.map((cert) => {
                 const CertIcon = cert.icon;
@@ -382,7 +381,7 @@ export default function StatsSection() {
                 return (
                   <div
                     key={cert.id}
-                    className={`group relative flex flex-col justify-between rounded-2xl border p-5 sm:p-6 shadow-sm backdrop-blur-xl transition-all duration-200 hover:shadow-md ${
+                    className={`group relative flex flex-col justify-between rounded-xl sm:rounded-2xl border p-3.5 sm:p-5 shadow-xs backdrop-blur-xl transition-all duration-200 hover:shadow-md ${
                       isNode2026
                         ? "border-[#0968e5]/40 bg-white/90 dark:bg-[#070e24]/85 shadow-[#0968e5]/10 ring-1 ring-[#0968e5]/30"
                         : "border-white/80 bg-white/75 dark:border-white/10 dark:bg-white/[0.045]"
@@ -390,23 +389,23 @@ export default function StatsSection() {
                   >
                     <div>
                       {/* Header: Icon + Year */}
-                      <div className="flex items-start justify-between gap-3">
-                        <div className="flex items-center gap-3">
-                          <div className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-gradient-to-br ${cert.tint} text-white shadow-xs`}>
-                            <CertIcon className="h-5 w-5" />
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex items-center gap-2.5">
+                          <div className={`grid h-8 w-8 sm:h-10 sm:w-10 shrink-0 place-items-center rounded-lg sm:rounded-xl bg-gradient-to-br ${cert.tint} text-white shadow-xs`}>
+                            <CertIcon className="h-4 w-4 sm:h-5 sm:w-5" />
                           </div>
                           <div>
-                            <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white line-clamp-1">
+                            <h3 className="text-xs sm:text-base font-black text-slate-900 dark:text-white line-clamp-1">
                               {cert.title}
                             </h3>
-                            <p className="text-xs sm:text-sm font-semibold text-[#0968e5] dark:text-[#7ab3ff] line-clamp-1">
+                            <p className="text-[10px] sm:text-xs font-semibold text-[#0968e5] dark:text-[#7ab3ff] line-clamp-1">
                               {cert.issuer}
                             </p>
                           </div>
                         </div>
 
                         <span
-                          className={`shrink-0 rounded-full px-3 py-1 text-xs font-bold ${
+                          className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] sm:text-xs font-bold ${
                             isNode2026
                               ? "bg-gradient-to-r from-[#091970] to-[#0968e5] text-white shadow-xs"
                               : "bg-[#0968e5]/10 text-[#091970] dark:text-[#7ab3ff] border border-[#0968e5]/20"
@@ -416,17 +415,17 @@ export default function StatsSection() {
                         </span>
                       </div>
 
-                      <p className="mt-3 text-xs sm:text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                      <p className="mt-2 text-[11px] sm:text-xs leading-relaxed text-slate-600 dark:text-slate-300">
                         {cert.description}
                       </p>
                     </div>
 
                     {/* Competencies Chips */}
-                    <div className="mt-5 pt-3.5 border-t border-slate-200/70 dark:border-white/10 flex flex-wrap gap-1.5">
+                    <div className="mt-3 pt-2.5 border-t border-slate-200/70 dark:border-white/10 flex flex-wrap gap-1">
                       {cert.competencies.map((comp) => (
                         <span
                           key={comp}
-                          className="rounded-md px-2.5 py-0.5 text-[11px] font-medium bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-white/5"
+                          className="rounded-md px-1.5 py-0.5 text-[9px] sm:text-[10px] font-medium bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-white/5"
                         >
                           {comp}
                         </span>
