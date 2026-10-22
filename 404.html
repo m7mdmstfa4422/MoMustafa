@@ -3,26 +3,23 @@
 <head>
   <meta charset="utf-8">
   <title>Mohamed Mustafa | Portfolio</title>
-  <script type="text/javascript">
+  <script>
     // Single Page Apps for GitHub Pages
-    // Redirects all 404 paths to the hash router base
-    (function() {
-      var pathSegmentsToKeep = 1; // repository sub-path /MoMustafa/
-      var l = window.location;
-      var segments = l.pathname.split('/').filter(Boolean);
-      var repoBase = segments.length > 0 ? '/' + segments[0] : '';
-      var routePath = '/' + segments.slice(pathSegmentsToKeep).join('/');
-      if (routePath === '/') routePath = '';
-      var query = l.search ? l.search : '';
-      var hash = l.hash ? l.hash : '';
+    // MIT License
+    // https://github.com/rafgraph/spa-github-pages
+    var pathSegmentsToKeep = 1;
 
-      // Redirect to repo base with hash route
-      var target = (repoBase || '') + '/#' + (routePath ? routePath : '/') + query + hash;
-      l.replace(target);
-    })();
+    var l = window.location;
+    l.replace(
+      l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+      l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
+      l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
+      (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+      l.hash
+    );
   </script>
 </head>
 <body>
-  <p>Redirecting to <a href="/MoMustafa/">Mohamed Mustafa Portfolio</a>...</p>
 </body>
 </html>
+
