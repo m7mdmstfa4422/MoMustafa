@@ -41,9 +41,18 @@ export default function Sidebar() {
 
   // Theme initialization
   useEffect(() => {
-    const dark =
-      localStorage.theme === "dark" ||
-      (!localStorage.theme && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    let dark = true;
+    try {
+      dark =
+        localStorage.theme === "dark" ||
+        (!localStorage.theme && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    } catch (_e) {
+      try {
+        dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      } catch (_err) {
+        dark = true;
+      }
+    }
     setIsDark(dark);
     document.documentElement.classList.toggle("dark", dark);
   }, []);
@@ -51,7 +60,9 @@ export default function Sidebar() {
   const toggleTheme = () => {
     const next = !isDark;
     setIsDark(next);
-    localStorage.theme = next ? "dark" : "light";
+    try {
+      localStorage.theme = next ? "dark" : "light";
+    } catch (_e) {}
     document.documentElement.classList.toggle("dark", next);
   };
 

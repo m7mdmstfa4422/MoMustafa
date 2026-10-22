@@ -20,8 +20,8 @@ const TECHNOLOGIES = [
   { name: "jQuery", logo: "jquery.png" },
 ];
 
-// Replicated items per track to guarantee an uninterrupted loop across any ultra-wide display
-const TRACK_SET = [...TECHNOLOGIES, ...TECHNOLOGIES, ...TECHNOLOGIES];
+// Replicated items per track to guarantee an uninterrupted loop
+const TRACK_SET = [...TECHNOLOGIES, ...TECHNOLOGIES];
 
 export default function StatsSection() {
   return (

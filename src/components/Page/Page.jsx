@@ -9,29 +9,33 @@ import Footer from '../Footer/Footer'
 
 export default function Home() {
   useEffect(() => {
-    document.title = "Mohamed Mustafa | Portfolio"
-    // Scroll if URL has hash or localStorage flag
-    const scrollTarget = (typeof window !== 'undefined' && (window.location.hash?.replace('#', '') || localStorage.getItem('scrollTo'))) || null
-    if (scrollTarget) {
-      const el = document.getElementById(scrollTarget)
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    document.title = "Mohamed Mustafa | Portfolio";
+    try {
+      let scrollTarget = null;
+      const hash = window.location.hash?.replace(/^#\/?/, "");
+      if (hash && !hash.includes("/")) {
+        scrollTarget = hash;
+      } else {
+        scrollTarget = localStorage.getItem("scrollTo");
       }
-      try { localStorage.removeItem('scrollTo') } catch {}
-    }
-  }, [])
+      if (scrollTarget) {
+        const el = document.getElementById(scrollTarget);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        localStorage.removeItem("scrollTo");
+      }
+    } catch (_e) {}
+  }, []);
 
   return (
-   
-      <main className="md:ml-18">
-        <Hero />
-        <StatsSection />
-        <div id="projects">
-          <Projects />
-        </div>
-        <Footer />
-
-      </main>
- 
-  )
+    <main className="md:ml-18">
+      <Hero />
+      <StatsSection />
+      <div id="projects">
+        <Projects />
+      </div>
+      <Footer />
+    </main>
+  );
 }
