@@ -1,8 +1,8 @@
 "use client";
 /* eslint-disable no-unused-vars */
 
-import { useEffect, useMemo } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useEffect, useState, useMemo } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, Sparkles } from "lucide-react";
 
@@ -15,25 +15,26 @@ import Footer from "../Footer/Footer";
 
 export default function Information() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
-  // Find project by ID with robust string matching
+  // Find project by ID
   const project = useMemo(() => {
-    if (!id) return projectsData[0] || null;
+    if (!id) return projectsData[0];
     const found = projectsData.find((p) => String(p.id) === String(id));
     return found || null;
   }, [id]);
 
-  // Instant scroll-to-top on route change to prevent mobile Safari layout thrashing
+  // Scroll to top upon project change
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [id]);
 
-  // Dynamic Document Title
+  // Page title
   useEffect(() => {
     if (project?.title) {
       document.title = `${project.title} — Case Study | Mohamed Mustafa`;
     }
-  }, [project?.title]);
+  }, [project]);
 
   if (!project) {
     return (
@@ -61,10 +62,10 @@ export default function Information() {
   return (
     <div className="relative min-h-screen bg-[#f7f8ff] dark:bg-black text-slate-900 dark:text-slate-100 overflow-x-hidden transition-colors duration-300">
       {/* ------------------------------------------------------------- */}
-      {/* ATMOSPHERIC BACKGROUND (MOBILE GPU & MEMORY SAFE)             */}
+      {/* ATMOSPHERIC APPLE MESH GRADIENTS (LIGHT & DARK HARMONY)       */}
       {/* ------------------------------------------------------------- */}
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
-        {/* Subtle geometric grid */}
+        {/* Subtle 52px geometric grid */}
         <div
           className="absolute inset-0 opacity-40 dark:opacity-70"
           style={{
@@ -72,50 +73,39 @@ export default function Information() {
               "linear-gradient(rgba(9, 104, 229, 0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(9, 104, 229, 0.07) 1px, transparent 1px)",
             backgroundSize: "52px 52px",
             maskImage: "linear-gradient(to bottom, black 20%, transparent 95%)",
-            WebkitMaskImage: "linear-gradient(to bottom, black 20%, transparent 95%)",
           }}
         />
 
-        {/* Mobile Static Lightweight Glows (Zero blur raster overhead to prevent OOM) */}
-        <div className="md:hidden absolute inset-0">
-          <div
-            className="absolute -top-16 -left-16 w-72 h-72 rounded-full opacity-30 dark:opacity-20"
-            style={{
-              background: "radial-gradient(circle, rgba(9,104,229,0.3) 0%, rgba(9,25,112,0.15) 50%, transparent 70%)",
-            }}
-          />
-          <div
-            className="absolute top-1/3 -right-16 w-72 h-72 rounded-full opacity-30 dark:opacity-20"
-            style={{
-              background: "radial-gradient(circle, rgba(9,25,112,0.25) 0%, rgba(9,104,229,0.15) 50%, transparent 70%)",
-            }}
-          />
-        </div>
+        {/* Ambient Top Left Glow (#0968e5) */}
+        <motion.div
+          animate={{
+            x: [0, 45, 0],
+            y: [0, -25, 0],
+            scale: [1, 1.12, 1],
+          }}
+          transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-32 -left-20 w-[36rem] h-[36rem] rounded-full bg-gradient-to-br from-[#0968e5]/25 to-[#091970]/30 blur-3xl"
+        />
 
-        {/* Desktop Animated Glows (Enabled only on md+ viewports) */}
-        <div className="hidden md:block absolute inset-0">
-          {/* Ambient Top Left Glow */}
-          <motion.div
-            animate={{
-              x: [0, 30, 0],
-              y: [0, -20, 0],
-            }}
-            transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -top-32 -left-20 w-[32rem] h-[32rem] rounded-full bg-gradient-to-br from-[#0968e5]/20 to-[#091970]/25 blur-3xl"
-          />
+        {/* Ambient Right Glow (#091970 / #094dbf) */}
+        <motion.div
+          animate={{
+            x: [0, -40, 0],
+            scale: [1, 1.15, 1],
+          }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/4 -right-24 w-[38rem] h-[38rem] rounded-full bg-gradient-to-tl from-[#091970]/35 via-[#094dbf]/20 to-[#0968e5]/20 blur-3xl"
+        />
 
-          {/* Ambient Right Glow */}
-          <motion.div
-            animate={{
-              x: [0, -30, 0],
-            }}
-            transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-1/4 -right-24 w-[34rem] h-[34rem] rounded-full bg-gradient-to-tl from-[#091970]/25 via-[#094dbf]/15 to-[#0968e5]/15 blur-3xl"
-          />
-
-          {/* Ambient Bottom Glow */}
-          <div className="absolute -bottom-28 left-1/3 w-[28rem] h-[28rem] rounded-full bg-[#0968e5]/10 blur-3xl dark:bg-[#091970]/20" />
-        </div>
+        {/* Ambient Bottom Glow */}
+        <motion.div
+          animate={{
+            y: [0, -35, 0],
+            scale: [1, 1.08, 1],
+          }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -bottom-28 left-1/3 w-[32rem] h-[32rem] rounded-full bg-[#0968e5]/15 blur-3xl dark:bg-[#091970]/25"
+        />
       </div>
 
       {/* Main layout container with desktop sidebar clearance */}
@@ -123,10 +113,10 @@ export default function Information() {
         <AnimatePresence mode="wait">
           <motion.div
             key={project.id}
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
+            exit={{ opacity: 0, y: -16 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
           >
             <ProjectContent project={project} allProjects={projectsData} />
           </motion.div>
