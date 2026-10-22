@@ -5,18 +5,33 @@
 /* Add beautiful design tokens and animations */
 @layer base {
   :root {
-    --color-primary: #e8f0f8;
+    --color-primary: #f7f8ff;
     --color-secondary: #f5f1ed;
-    --color-accent: #1b4332;
-    --color-accent-light: #2d6a4f;
-    --color-text-dark: #1a1a1aea;
-    --color-text-light: #4a4a4a;
-    --color-border: #d4c5b9;
+    --color-accent: #0968e5;
+    --color-accent-light: #4592ff;
+    --color-text-dark: #0f172a;
+    --color-text-light: #475569;
+    --color-border: #e2e8f0;
+  }
+
+  html.dark,
+  :root.dark,
+  .dark {
+    --color-primary: #000000;
+    --color-text-dark: #f8fafc;
+    --color-text-light: #94a3b8;
+    --color-border: rgba(255, 255, 255, 0.1);
   }
 
   body {
     background-color: var(--color-primary);
     color: var(--color-text-dark);
+  }
+
+  html.dark body,
+  .dark body {
+    background-color: #000000 !important;
+    color: #f8fafc;
   }
 }
 
@@ -101,3 +116,27 @@
   transform: translateY(-4px);
   box-shadow: 0 12px 24px rgba(27, 67, 50, 0.15);
 }
+
+/* Infinite Apple-style Technology Marquee */
+@keyframes techMarquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-tech-marquee {
+  display: flex;
+  width: max-content;
+  animation: techMarquee 42s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-tech-marquee {
+    animation-play-state: paused;
+  }
+}
+

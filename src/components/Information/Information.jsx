@@ -38,7 +38,7 @@ export default function Information() {
 
   if (!project) {
     return (
-      <div className="min-h-screen bg-[#f7f8ff] dark:bg-[#0b1120] flex items-center justify-center p-6 text-slate-900 dark:text-slate-100 md:ml-20">
+      <div className="min-h-screen bg-[#f7f8ff] dark:bg-black flex items-center justify-center p-6 text-slate-900 dark:text-slate-100 md:ml-20">
         <div className="text-center space-y-4 max-w-md">
           <span className="inline-block p-4 rounded-3xl bg-[#0968e5]/10 dark:bg-white/5 border border-[#0968e5]/20 dark:border-white/10 text-[#0968e5] dark:text-[#7ab3ff]">
             <Sparkles className="w-8 h-8" />
@@ -60,7 +60,7 @@ export default function Information() {
   }
 
   return (
-    <div className="relative min-h-screen bg-[#f7f8ff] dark:bg-[#0b1120] text-slate-900 dark:text-slate-100 overflow-x-hidden transition-colors duration-300">
+    <div className="relative min-h-screen bg-[#f7f8ff] dark:bg-black text-slate-900 dark:text-slate-100 overflow-x-hidden transition-colors duration-300">
       {/* ------------------------------------------------------------- */}
       {/* ATMOSPHERIC APPLE MESH GRADIENTS (LIGHT & DARK HARMONY)       */}
       {/* ------------------------------------------------------------- */}

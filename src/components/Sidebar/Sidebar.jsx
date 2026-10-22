@@ -151,7 +151,7 @@ export default function Sidebar() {
             y: ((e.clientY - box.top) / box.height) * 100,
           });
         }}
-        className="hidden md:flex fixed left-5 top-1/2 -translate-y-1/2 z-50 flex-col items-center gap-3 w-[4.6rem] p-2.5 rounded-[2.2rem] border border-white/80 bg-white/75 dark:border-white/10 dark:bg-[#0b1120]/80 shadow-2xl shadow-[#091970]/15 dark:shadow-black/60 backdrop-blur-2xl transition-colors duration-300 select-none"
+        className="hidden md:flex fixed left-5 top-1/2 -translate-y-1/2 z-50 flex-col items-center gap-3 w-[4.6rem] p-2.5 rounded-[2.2rem] border border-white/80 bg-white/75 dark:border-white/10 dark:bg-black/80 shadow-2xl shadow-[#091970]/15 dark:shadow-black/60 backdrop-blur-2xl transition-colors duration-300 select-none"
         aria-label="Executive Navigation Rail"
       >
         {/* Specular Ambient Glow inside the rail */}
@@ -185,7 +185,7 @@ export default function Sidebar() {
             {/* Pulsing Status Beacon */}
             <span className="absolute -bottom-0.5 -right-0.5 flex h-3.5 w-3.5 items-center justify-center">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full border-2 border-white dark:border-[#0b1120] bg-emerald-500" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full border-2 border-white dark:border-black bg-emerald-500" />
             </span>
           </motion.button>
 
@@ -197,7 +197,7 @@ export default function Sidebar() {
                 animate={{ opacity: 1, scale: 1, x: 0 }}
                 exit={{ opacity: 0, scale: 0.92, x: 8 }}
                 transition={appleSpring}
-                className="absolute left-full ml-3.5 top-0 w-72 rounded-3xl border border-white/80 bg-white/90 p-4 shadow-2xl shadow-[#091970]/15 backdrop-blur-3xl dark:border-white/15 dark:bg-[#0b1120]/90 text-slate-900 dark:text-slate-100 z-50"
+                className="absolute left-full ml-3.5 top-0 w-72 rounded-3xl border border-white/80 bg-white/90 p-4 shadow-2xl shadow-[#091970]/15 backdrop-blur-3xl dark:border-white/15 dark:bg-black/90 text-slate-900 dark:text-slate-100 z-50"
               >
                 <div className="flex items-center gap-3 pb-3 border-b border-slate-200/80 dark:border-white/10">
                   <img
@@ -467,7 +467,7 @@ export default function Sidebar() {
                   animate={{ opacity: 1, scale: 1, x: 0 }}
                   exit={{ opacity: 0, scale: 0.92, x: 8 }}
                   transition={appleSpring}
-                  className="absolute left-full ml-3.5 top-1/2 -translate-y-1/2 w-64 rounded-3xl border border-white/80 bg-white/90 p-2.5 shadow-2xl shadow-[#091970]/15 backdrop-blur-3xl dark:border-white/15 dark:bg-[#0b1120]/90 text-slate-900 dark:text-slate-100 z-50"
+                  className="absolute left-full ml-3.5 top-1/2 -translate-y-1/2 w-64 rounded-3xl border border-white/80 bg-white/90 p-2.5 shadow-2xl shadow-[#091970]/15 backdrop-blur-3xl dark:border-white/15 dark:bg-black/90 text-slate-900 dark:text-slate-100 z-50"
                 >
                   <div className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 border-b border-slate-200/80 dark:border-white/10 flex items-center justify-between">
                     <span>Direct Channels</span>
@@ -551,7 +551,7 @@ export default function Sidebar() {
         initial={{ opacity: 0, y: 24, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ type: "spring", stiffness: 350, damping: 26 }}
-        className="fixed bottom-3 inset-x-3 max-w-[22.5rem] sm:max-w-sm mx-auto z-50 flex items-center justify-between rounded-full border border-white/80 bg-white/85 p-1.5 shadow-2xl shadow-[#091970]/15 backdrop-blur-2xl dark:border-white/15 dark:bg-[#0b1120]/85 dark:shadow-black/70 md:hidden transition-colors select-none"
+        className="fixed bottom-3 inset-x-3 max-w-[22.5rem] sm:max-w-sm mx-auto z-50 flex items-center justify-between rounded-full border border-white/80 bg-white/85 p-1.5 shadow-2xl shadow-[#091970]/15 backdrop-blur-2xl dark:border-white/15 dark:bg-black/85 dark:shadow-black/70 md:hidden transition-colors select-none"
         aria-label="Mobile Navigation Dock"
       >
         {/* Profile Avatar Button */}
@@ -568,7 +568,7 @@ export default function Sidebar() {
               className="h-full w-full rounded-full object-cover"
             />
           </div>
-          <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full border-2 border-white dark:border-[#0b1120] bg-emerald-500" />
+          <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full border-2 border-white dark:border-black bg-emerald-500" />
         </button>
 
         {/* Home */}
@@ -657,7 +657,7 @@ export default function Sidebar() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 12, scale: 0.95 }}
             transition={appleSpring}
-            className="fixed bottom-18 inset-x-4 max-w-xs mx-auto z-50 rounded-3xl border border-white/80 bg-white/95 p-4 shadow-2xl shadow-[#091970]/20 backdrop-blur-3xl dark:border-white/15 dark:bg-[#0b1120]/95 text-slate-900 dark:text-slate-100 md:hidden"
+            className="fixed bottom-18 inset-x-4 max-w-xs mx-auto z-50 rounded-3xl border border-white/80 bg-white/95 p-4 shadow-2xl shadow-[#091970]/20 backdrop-blur-3xl dark:border-white/15 dark:bg-black/95 text-slate-900 dark:text-slate-100 md:hidden"
           >
             <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
               <div className="flex items-center gap-3">
@@ -716,7 +716,7 @@ export default function Sidebar() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 12, scale: 0.95 }}
             transition={appleSpring}
-            className="fixed bottom-18 inset-x-4 max-w-xs mx-auto z-50 rounded-3xl border border-white/80 bg-white/95 p-3.5 shadow-2xl shadow-[#091970]/20 backdrop-blur-3xl dark:border-white/15 dark:bg-[#0b1120]/95 text-slate-900 dark:text-slate-100 md:hidden"
+            className="fixed bottom-18 inset-x-4 max-w-xs mx-auto z-50 rounded-3xl border border-white/80 bg-white/95 p-3.5 shadow-2xl shadow-[#091970]/20 backdrop-blur-3xl dark:border-white/15 dark:bg-black/95 text-slate-900 dark:text-slate-100 md:hidden"
           >
             <div className="flex items-center justify-between pb-2 border-b border-slate-200/80 dark:border-white/10 px-1">
               <div className="flex items-center gap-2">

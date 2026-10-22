@@ -3,10 +3,67 @@
 
 export const asset = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
 
-export const projectsData = [
+export const projectsData = [{
+    id: 11,
+    title: "els3ody POS cashier",
+    subtitle: "Cloud Point of Sale & Inventory Management System",
+    category: "React & Node.js",
+    filterCategory: "fullstack",
+    badge: "Full-Stack POS",
+    featured: true,
+    year: "2026",
+    role: "Full-Stack Developer",
+    status: "Production Ready",
+    errorMessage: "For live demo access or system testing, please contact the developer.",
+    description: "A high-performance Point of Sale (POS) and retail management platform built for modern retail and supermarket operations. Features rapid barcode scanning, real-time inventory tracking with low-stock alerts, digital invoice printing, automated shift reconciliation, and comprehensive end-of-day sales analytics.",
+    image: asset("images/p12/bg2.png"),
+    gallery: [
+      asset("images/p12/bg2.png"),
+      asset("images/p12/bg1.png"),
+      asset("images/p12/bg3.png"),
+      asset("images/p12/bg4.png"),
+      asset("images/p12/bg5.png"),
+      asset("images/p12/bg6.png"),
+      asset("images/p12/bg7.png"),
+      asset("images/p12/bg8.png"),
+      asset("images/p12/bg9.png"),
+      asset("images/p12/bg10.png"),
+    ],
+    accent: "#06b6d4",
+    gradient: "from-cyan-500 via-blue-600 to-indigo-700",
+    tags: ["React", "Node.js", "Express", "Tailwind CSS", "Vite", "REST API"],
+    metrics: {
+      speed: "99/100",
+      security: "JWT & RBAC",
+      response: "< 60ms"
+    },
+    features: [{
+        title: "High-Speed Barcode Checkout",
+        desc: "Instant SKU lookup and automated barcode processing optimized for zero-latency cashier operations.",
+      },
+      {
+        title: "Real-Time Inventory & Stock Alerts",
+        desc: "Automated warehouse sync with low-stock threshold notifications and batch tracking.",
+      },
+      {
+        title: "Digital Invoicing & Thermal Printing",
+        desc: "Instant receipt generation with split-payment options, discounts, and tax calculation.",
+      },
+      {
+        title: "Shift Management & Sales Analytics",
+        desc: "Comprehensive daily register reconciliation, cashier performance logs, and profit margin reports.",
+      },
+    ],
+    icons: [
+      asset("images/webIcon/react.png"),
+      asset("images/webIcon/nodejs.png"),
+      asset("images/webIcon/tailwind.png"),
+      asset("images/webIcon/mongobd.png"),
+    ],
+  },
   {
-    id: 9,
-    title: "DocPoint",
+    id: 10,
+    title: "Docpoint General ",
     subtitle: "Clinic & Healthcare Management System",
     category: "React & Node.js",
     filterCategory: "fullstack",
@@ -15,27 +72,85 @@ export const projectsData = [
     year: "2026",
     role: "Full-Stack Developer",
     status: "Production Ready",
-    description:
-      "A comprehensive clinic management platform engineered to streamline modern healthcare workflows. Features structured electronic medical records (EMR), dynamic appointment scheduling with automated calendar conflict prevention, digital prescription issuance, and role-based access control.",
+    errorMessage: "For live demo access or system testing, please contact the developer.",
+    description: "A comprehensive clinic management platform engineered to streamline modern healthcare workflows. Features structured electronic medical records (EMR), dynamic appointment scheduling with automated calendar conflict prevention, digital prescription issuance, and role-based access control.",
+    image: asset("images/p11/bg1.png"),
+    gallery: [
+      asset("images/p11/bg1.png"),
+      asset("images/p11/bg2.png"),
+      asset("images/p11/bg3.png"),
+    ],
+    link: "https://docgenral.vercel.app/Login",
+    accent: "#06b6d4",
+    gradient: "from-cyan-500 via-blue-600 to-indigo-700",
+    tags: ["React", "Node.js", "Express", "Tailwind CSS", "Vite", "REST API"],
+    metrics: {
+      speed: "99/100",
+      security: "JWT & RBAC",
+      response: "< 60ms"
+    },
+    features: [{
+        title: "Electronic Medical Records (EMR)",
+        desc: "Secure patient documentation detailing medical histories, diagnoses, and lab results.",
+      },
+      {
+        title: "Dynamic Appointment Scheduler",
+        desc: "Interactive timetable with physician slot allocation and real-time status updates.",
+      },
+      {
+        title: "Digital Prescription Engine",
+        desc: "Automated medication dosage calculator with exportable PDF prescription summaries.",
+      },
+      {
+        title: "Multi-Role Security Architecture",
+        desc: "Strict permission boundaries between hospital directors, doctors, and front-desk receptionists.",
+      },
+    ],
+    icons: [
+      asset("images/webIcon/react.png"),
+      asset("images/webIcon/nodejs.png"),
+      asset("images/webIcon/tailwind.png"),
+      asset("images/webIcon/mongobd.png"),
+    ],
+  },
+  {
+    id: 9,
+    title: "Docpoint Teeth",
+    subtitle: "Clinic & Healthcare Management System",
+    category: "React & Node.js",
+    filterCategory: "fullstack",
+    badge: "Full-Stack Portal",
+    featured: true,
+    year: "2026",
+    role: "Full-Stack Developer",
+    errorMessage: "For live demo access or system testing, please contact the developer.",
+    status: "Production Ready",
+    description: "A comprehensive clinic management platform engineered to streamline modern healthcare workflows. Features structured electronic medical records (EMR), dynamic appointment scheduling with automated calendar conflict prevention, digital prescription issuance, and role-based access control.",
     image: asset("images/p10/bg2.png"),
     gallery: [
       asset("images/p10/bg2.png"),
       asset("images/p10/bg1.png"),
       asset("images/p10/bg3.png"),
       asset("images/p10/bg4.png"),
+      asset("images/p10/bg4.2.png"),
+      asset("images/p10/bg4.3.png"),
+      asset("images/p10/bg4.4.png"),
       asset("images/p10/bg5.png"),
       asset("images/p10/bg6.png"),
       asset("images/p10/bg7.png"),
       asset("images/p10/bg8.png"),
       asset("images/p10/bg9.png"),
     ],
-    link: "https://th-docpoint-v2.vercel.app/Login",
+    link: "https://teeth-doc.vercel.app/Login",
     accent: "#06b6d4",
     gradient: "from-cyan-500 via-blue-600 to-indigo-700",
     tags: ["React", "Node.js", "Express", "Tailwind CSS", "Vite", "REST API"],
-    metrics: { speed: "99/100", security: "JWT & RBAC", response: "< 60ms" },
-    features: [
-      {
+    metrics: {
+      speed: "99/100",
+      security: "JWT & RBAC",
+      response: "< 60ms"
+    },
+    features: [{
         title: "Electronic Medical Records (EMR)",
         desc: "Secure patient documentation detailing medical histories, diagnoses, and lab results.",
       },
@@ -70,8 +185,7 @@ export const projectsData = [
     year: "2026",
     role: "Full-Stack Engineer",
     status: "Production Ready",
-    description:
-      "An end-to-end restaurant ordering ecosystem where customers customize burgers, place orders, and track preparation stages, while restaurant managers monitor tickets in real-time through an administrative dashboard.",
+    description: "An end-to-end restaurant ordering ecosystem where customers customize burgers, place orders, and track preparation stages, while restaurant managers monitor tickets in real-time through an administrative dashboard.",
     image: asset("images/p9/beg.png"),
     gallery: [
       asset("images/p9/beg.png"),
@@ -84,15 +198,18 @@ export const projectsData = [
       asset("images/p9/beg8.png"),
       asset("images/p9/beg9.png"),
     ],
-    
+
     link: "https://burgernestt.vercel.app/",
     github: "https://github.com/m7mdmstfa4422/burger",
     accent: "#f59e0b",
     gradient: "from-amber-500 via-orange-600 to-red-600",
     tags: ["React", "Tailwind CSS", "Vite", "Backend API", "JavaScript"],
-    metrics: { performance: "100%", orderLatency: "Real-time", mobile: "100% Fluid" },
-    features: [
-      {
+    metrics: {
+      performance: "100%",
+      orderLatency: "Real-time",
+      mobile: "100% Fluid"
+    },
+    features: [{
         title: "Custom Recipe Builder",
         desc: "Interactive visual component for stacking patties, premium buns, toppings, and signature sauces.",
       },
@@ -126,8 +243,7 @@ export const projectsData = [
     year: "2025",
     role: "Frontend Developer",
     status: "Production Ready",
-    description:
-      "A modern digital restaurant menu and ordering application featuring instant category browsing, dietary allergen indicators, dynamic price calculation, and localized mobile-first navigation.",
+    description: "A modern digital restaurant menu and ordering application featuring instant category browsing, dietary allergen indicators, dynamic price calculation, and localized mobile-first navigation.",
     image: asset("images/p7/cover.png"),
     gallery: [
       asset("images/p7/cover.png"),
@@ -137,15 +253,18 @@ export const projectsData = [
       asset("images/p7/img4.png"),
       asset("images/p7/img5.png"),
     ],
-    
+
     link: "https://m7mdmstfa4422.github.io/EgyMenu/",
     github: "https://github.com/m7mdmstfa4422/EgyMenu/tree/main",
     accent: "#ef4444",
     gradient: "from-rose-500 via-pink-600 to-orange-500",
     tags: ["React", "Tailwind CSS", "Vite", "REST API", "JavaScript"],
-    metrics: { loadTime: "0.4s", responsive: "Mobile-first", animation: "60 FPS" },
-    features: [
-      {
+    metrics: {
+      loadTime: "0.4s",
+      responsive: "Mobile-first",
+      animation: "60 FPS"
+    },
+    features: [{
         title: "Multi-Category Filtering",
         desc: "Instant filtering across breakfast, chef specials, beverages, and desserts with zero lag.",
       },
@@ -179,8 +298,7 @@ export const projectsData = [
     year: "2025",
     role: "Frontend Developer",
     status: "Production Ready",
-    description:
-      "A feature-complete e-commerce platform equipped with multi-faceted product filters, live autocomplete search, wishlist management, cart checkout flow, and authentication state.",
+    description: "A feature-complete e-commerce platform equipped with multi-faceted product filters, live autocomplete search, wishlist management, cart checkout flow, and authentication state.",
     image: asset("images/p8/ecom3.png"),
     gallery: [
       asset("images/p8/ecom3.png"),
@@ -196,9 +314,12 @@ export const projectsData = [
     accent: "#3b82f6",
     gradient: "from-blue-600 via-cyan-600 to-indigo-700",
     tags: ["React", "Tailwind CSS", "REST API", "Vite", "JavaScript"],
-    metrics: { catalog: "100+ Products", speed: "97/100", cartSync: "Instant" },
-    features: [
-      {
+    metrics: {
+      catalog: "100+ Products",
+      speed: "97/100",
+      cartSync: "Instant"
+    },
+    features: [{
         title: "Faceted Search & Filters",
         desc: "Filter by brand, category, price range, and user rating simultaneously.",
       },
@@ -232,8 +353,7 @@ export const projectsData = [
     year: "2025",
     role: "Game & Logic Developer",
     status: "Production Ready",
-    description:
-      "A modular object-oriented browser game constructed using ES6 classes. Implements an event loop, collision detection algorithms, particle physics, and state transitions.",
+    description: "A modular object-oriented browser game constructed using ES6 classes. Implements an event loop, collision detection algorithms, particle physics, and state transitions.",
     image: asset("images/p6/game1.png"),
     gallery: [
       asset("images/p6/game1.png"),
@@ -246,9 +366,12 @@ export const projectsData = [
     accent: "#8b5cf6",
     gradient: "from-violet-600 via-purple-600 to-indigo-700",
     tags: ["JavaScript", "OOP Classes", "Tailwind CSS", "HTML5 Canvas"],
-    metrics: { fps: "Solid 60 FPS", architecture: "Pure OOP", bundle: "< 45KB" },
-    features: [
-      {
+    metrics: {
+      fps: "Solid 60 FPS",
+      architecture: "Pure OOP",
+      bundle: "< 45KB"
+    },
+    features: [{
         title: "Object-Oriented Architecture",
         desc: "Decoupled class hierarchies for Player, Enemy, Collider, and GameLoop managers.",
       },
@@ -282,8 +405,7 @@ export const projectsData = [
     year: "2025",
     role: "Frontend Developer",
     status: "Production Ready",
-    description:
-      "An interactive culinary discovery application connecting to public recipe databases. Offers instant ingredient searching, country cuisine classifications, and instructional cooking guides.",
+    description: "An interactive culinary discovery application connecting to public recipe databases. Offers instant ingredient searching, country cuisine classifications, and instructional cooking guides.",
     image: asset("images/p4/yummy1.png"),
     gallery: [
       asset("images/p4/yummy1.png"),
@@ -297,9 +419,12 @@ export const projectsData = [
     accent: "#10b981",
     gradient: "from-emerald-500 via-teal-600 to-cyan-600",
     tags: ["JavaScript", "jQuery", "Bootstrap 5", "MealDB API"],
-    metrics: { recipes: "10,000+", searchSpeed: "< 100ms", responsive: "100%" },
-    features: [
-      {
+    metrics: {
+      recipes: "10,000+",
+      searchSpeed: "< 100ms",
+      responsive: "100%"
+    },
+    features: [{
         title: "Live Meal Search by Letter & Keyword",
         desc: "Instant debounced search fetching recipes dynamically as user types.",
       },
@@ -334,8 +459,7 @@ export const projectsData = [
     year: "2024",
     role: "Frontend Developer",
     status: "Production Ready",
-    description:
-      "A real-time meteorological forecast web app delivering multi-day forecasts, atmospheric humidity, wind speed, precipitation probability, and dynamic weather conditions.",
+    description: "A real-time meteorological forecast web app delivering multi-day forecasts, atmospheric humidity, wind speed, precipitation probability, and dynamic weather conditions.",
     image: asset("images/p5/weather1.png"),
     gallery: [
       asset("images/p5/weather1.png"),
@@ -346,9 +470,12 @@ export const projectsData = [
     accent: "#0284c7",
     gradient: "from-sky-500 via-blue-600 to-indigo-700",
     tags: ["JavaScript", "Weather API", "Bootstrap 5", "HTML5 / CSS3"],
-    metrics: { accuracy: "Real-time", forecast: "3-Day Window", latency: "< 150ms" },
-    features: [
-      {
+    metrics: {
+      accuracy: "Real-time",
+      forecast: "3-Day Window",
+      latency: "< 150ms"
+    },
+    features: [{
         title: "City Autocomplete & Geolocation",
         desc: "Detects current coordinates or finds any global city with instant autocomplete.",
       },
@@ -382,8 +509,7 @@ export const projectsData = [
     year: "2024",
     role: "Frontend Developer",
     status: "Production Ready",
-    description:
-      "A clean, efficient web utility to bookmark, organize, and launch important websites. Features regex-based URL validation, instant one-click deletion, and client-side persistence.",
+    description: "A clean, efficient web utility to bookmark, organize, and launch important websites. Features regex-based URL validation, instant one-click deletion, and client-side persistence.",
     image: asset("images/p3/Book1.png"),
     gallery: [
       asset("images/p3/Book1.png"),
@@ -394,9 +520,12 @@ export const projectsData = [
     accent: "#d97706",
     gradient: "from-amber-600 via-orange-600 to-rose-600",
     tags: ["JavaScript", "Bootstrap 5", "localStorage", "HTML5"],
-    metrics: { storage: "Persistent", validation: "Strict Regex", speed: "Instant" },
-    features: [
-      {
+    metrics: {
+      storage: "Persistent",
+      validation: "Strict Regex",
+      speed: "Instant"
+    },
+    features: [{
         title: "Regex URL Validator",
         desc: "Real-time input validation ensuring submitted addresses conform to valid URL schemas.",
       },
@@ -430,8 +559,7 @@ export const projectsData = [
     year: "2024",
     role: "Frontend Developer",
     status: "Production Ready",
-    description:
-      "A sleek, responsive personal portfolio built with Bootstrap components, interactive testimonial carousels, animated progress meters, filterable work showcases, and a contact form.",
+    description: "A sleek, responsive personal portfolio built with Bootstrap components, interactive testimonial carousels, animated progress meters, filterable work showcases, and a contact form.",
     image: asset("images/p2/proto1.png"),
     gallery: [
       asset("images/p2/proto1.png"),
@@ -445,9 +573,12 @@ export const projectsData = [
     accent: "#6366f1",
     gradient: "from-indigo-600 via-purple-600 to-pink-500",
     tags: ["Bootstrap 5", "HTML5", "CSS3", "JavaScript"],
-    metrics: { speed: "98/100", responsive: "Mobile-first", screens: 5 },
-    features: [
-      {
+    metrics: {
+      speed: "98/100",
+      responsive: "Mobile-first",
+      screens: 5
+    },
+    features: [{
         title: "Responsive Grid System",
         desc: "Pixel-perfect multi-device responsiveness utilizing Bootstrap 5 flexbox grid.",
       },
@@ -471,4 +602,3 @@ export const projectsData = [
     ],
   },
 ];
-

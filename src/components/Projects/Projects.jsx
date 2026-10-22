@@ -85,11 +85,14 @@ export default function Projects() {
     return showAll ? filteredProjects : filteredProjects.slice(0, 6);
   }, [filteredProjects, showAll]);
 
+  const hasMoreProjects = filteredProjects.length > 6;
+  const remainingProjects = Math.max(filteredProjects.length - 6, 0);
+
   return (
     <section
       id="projects"
       aria-label="Featured Projects Portfolio"
-      className="relative px-4 sm:px-6 md:px-12 py-16 md:py-24 overflow-hidden bg-[#f7f8ff] dark:bg-[#0b1120] text-slate-900 dark:text-slate-100 transition-colors duration-300"
+      className="relative px-4 sm:px-6 md:px-12 py-16 md:py-24 overflow-hidden bg-[#f7f8ff] dark:bg-black text-slate-900 dark:text-slate-100 transition-colors duration-300 border-t border-slate-200/80 dark:border-white/10"
     >
       {/* ------------------------------------------------------------- */}
       {/* ATMOSPHERIC BACKGROUND MESH                                   */}
@@ -129,10 +132,7 @@ export default function Projects() {
           variants={revealVariants}
           className="text-center max-w-3xl mx-auto space-y-3"
         >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-[#0968e5]/10 border border-[#0968e5]/30 text-[#091970] dark:text-[#7ab3ff] backdrop-blur-md">
-            <Sparkles className="w-3.5 h-3.5 text-[#0968e5]" />
-            <span>Featured Engineering Work</span>
-          </div>
+          
 
           <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
             Featured Work &amp; Case Studies
@@ -192,6 +192,7 @@ export default function Projects() {
           key={activeCategory}
           variants={containerVariants}
           initial="hidden"
+          animate="visible"
           whileInView="visible"
           viewport={{ once: true, amount: 0.15 }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch"
@@ -222,13 +223,14 @@ export default function Projects() {
           variants={revealVariants}
           className="text-center pt-6 flex flex-wrap items-center justify-center gap-4"
         >
-          {filteredProjects.length > 6 && (
+          {hasMoreProjects && (
             <button
               type="button"
-              onClick={() => setShowAll(!showAll)}
+              onClick={() => setShowAll((isExpanded) => !isExpanded)}
+              aria-expanded={showAll}
               className="px-7 py-3.5 rounded-2xl bg-white dark:bg-white/10 text-slate-800 dark:text-white border border-slate-200 dark:border-white/15 font-bold text-sm shadow-xs hover:bg-slate-50 dark:hover:bg-white/15 hover:scale-105 active:scale-95 transition-all cursor-pointer"
             >
-              {showAll ? "Show Less" : `View More (${filteredProjects.length} Projects)`}
+              {showAll ? "Show Less" : `View More (${remainingProjects} Projects)`}
             </button>
           )}
 

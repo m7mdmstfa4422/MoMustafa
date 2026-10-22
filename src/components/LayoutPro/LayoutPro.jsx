@@ -102,7 +102,7 @@ export default function LayoutPro() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-[#f7f8ff] dark:bg-[#0b1120] text-slate-900 dark:text-slate-100 overflow-x-hidden font-sans transition-colors duration-300">
+    <div className="relative min-h-screen bg-[#f7f8ff] dark:bg-black text-slate-900 dark:text-slate-100 overflow-x-hidden font-sans transition-colors duration-300">
       {/* ------------------------------------------------------------- */}
       {/* ATMOSPHERIC APPLE MESH GRADIENTS (LIGHT & DARK)               */}
       {/* ------------------------------------------------------------- */}

@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 
 const CV_URL = `${import.meta.env.BASE_URL}Mohamed_Mustafa_CV.pdf`;
+const LOGO_SRC = `${import.meta.env.BASE_URL}images/icon.png`;
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -47,7 +48,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative md:ps-20 border-t border-slate-200/80 dark:border-white/10 pt-16 pb-24 sm:pb-12 px-4 sm:px-8 md:px-14 bg-[#f7f8ff] dark:bg-[#0b1120] text-slate-900 dark:text-slate-100 transition-colors duration-300 overflow-hidden">
+    <footer className="relative md:ps-20 border-t border-slate-200/80 dark:border-white/10 pt-16 pb-24 sm:pb-12 px-4 sm:px-8 md:px-14 bg-[#f7f8ff] dark:bg-black text-slate-900 dark:text-slate-100 transition-colors duration-300 overflow-hidden">
       {/* ------------------------------------------------------------- */}
       {/* ATMOSPHERIC BACKGROUND MESH                                   */}
       {/* ------------------------------------------------------------- */}
@@ -82,7 +83,11 @@ export default function Footer() {
           <motion.div variants={itemVariants} className="md:col-span-5 space-y-4">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#091970] via-[#094dbf] to-[#0968e5] flex items-center justify-center shadow-lg shadow-[#0968e5]/25">
-                <span className="text-white font-black text-lg">Mo</span>
+                <img
+                  src={LOGO_SRC}
+                  alt="Mohammed Mustafa logo"
+                  className="h-full w-full rounded-2xl object-contain p-1.5"
+                />
               </div>
               <div>
                 <h4 className="text-xl font-black text-slate-900 dark:text-white">Mohammed Mustafa</h4>

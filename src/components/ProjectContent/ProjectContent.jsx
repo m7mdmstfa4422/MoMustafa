@@ -20,6 +20,8 @@ import {
   Cpu,
   Zap,
   Lock,
+  Info,
+  Mail,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -198,7 +200,7 @@ export default function ProjectContent({ project, allProjects = [] }) {
             {/* CTA Buttons */}
             <div className="flex flex-wrap items-center justify-center gap-3.5">
               {/* Live Demo */}
-              {project?.link && (
+              {project?.link ? (
                 <motion.a
                   href={project.link}
                   target="_blank"
@@ -210,6 +212,23 @@ export default function ProjectContent({ project, allProjects = [] }) {
                   <span className="pointer-events-none absolute -inset-full bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 group-hover:translate-x-full transition-all duration-700 transform -skew-x-12" />
                   <ExternalLink className="w-4 h-4 relative z-10 text-[#7ab3ff] group-hover:text-white transition-colors group-hover:rotate-12" />
                   <span className="relative z-10">Live Demo</span>
+                </motion.a>
+              ) : (
+                <motion.a
+                  href="https://wa.me/201003154481"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.96 }}
+                  title={project?.errorMessage || "For live demo access or system testing, please contact the developer."}
+                  className="relative group inline-flex items-center gap-2.5 px-8 py-4 rounded-full text-sm sm:text-base font-bold text-white shadow-xl shadow-[#0968e5]/30 hover:shadow-[#0968e5]/50 transition-all duration-300 overflow-hidden bg-gradient-to-r from-[#091970] via-[#083c9c] to-[#0968e5] hover:from-[#0b218f] hover:via-[#094bbd] hover:to-[#227bff] border border-[#0968e5]/40"
+                >
+                  <span className="pointer-events-none absolute -inset-full bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 group-hover:translate-x-full transition-all duration-700 transform -skew-x-12" />
+                  <Lock className="w-4 h-4 relative z-10 text-[#9bc5ff] group-hover:text-white transition-colors" />
+                  <span className="relative z-10">Live Demo</span>
+                  <span className="relative z-10 text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#4592ff]/25 text-[#d8e9ff] border border-[#7ab3ff]/30">
+                    On Request
+                  </span>
                 </motion.a>
               )}
 
@@ -223,19 +242,21 @@ export default function ProjectContent({ project, allProjects = [] }) {
                   whileTap={{ scale: 0.96 }}
                   className="relative group inline-flex items-center rounded-full p-[2px] bg-gradient-to-r from-[#0968e5] via-[#4592ff] to-[#091970] shadow-lg shadow-[#091970]/30 hover:shadow-[#0968e5]/30 transition-all duration-300"
                 >
-                  <span className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white dark:bg-[#050b2b] group-hover:bg-opacity-80 dark:group-hover:bg-opacity-70 transition-colors text-sm sm:text-base font-bold text-slate-800 dark:text-white">
+                  <span className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white dark:bg-black group-hover:bg-opacity-80 dark:group-hover:bg-opacity-70 transition-colors text-sm sm:text-base font-bold text-slate-800 dark:text-white">
                     <Github className="w-4 h-4 text-[#0968e5] dark:text-[#3b8bfd] transition-transform group-hover:rotate-12" />
                     <span>View Source</span>
                   </span>
                 </motion.a>
               ) : (
                 <div
-                  className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-slate-100/80 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-slate-400 dark:text-slate-500 cursor-not-allowed select-none text-sm sm:text-base font-semibold backdrop-blur-md"
+                  className="inline-flex items-center gap-2.5 rounded-full border border-[#0968e5]/15 bg-white/70 px-6 py-3.5 text-sm font-semibold text-slate-500 shadow-[0_10px_30px_rgba(9,25,112,0.06)] backdrop-blur-xl transition-colors dark:border-[#7ab3ff]/15 dark:bg-white/[0.05] dark:text-slate-400"
                   title="Source code is private or confidential"
                 >
-                  <Lock className="w-4 h-4 text-slate-400 dark:text-slate-500" />
-                  <span className="line-through decoration-slate-400/50">Private Repo</span>
-                  <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-slate-200 dark:bg-white/10 text-slate-500 dark:text-slate-400">
+                  <span className="flex h-7 w-7 items-center justify-center rounded-xl border border-[#0968e5]/15 bg-[#0968e5]/10 text-[#0968e5] dark:border-[#7ab3ff]/15 dark:bg-[#7ab3ff]/10 dark:text-[#9bc5ff]">
+                    <Lock className="h-3.5 w-3.5" />
+                  </span>
+                  <span className="text-slate-600 dark:text-slate-300">Private Repo</span>
+                  <span className="rounded-full border border-[#0968e5]/20 bg-[#0968e5]/10 px-2 py-0.5 font-mono text-[10px] font-semibold tracking-wide text-[#0968e5] dark:border-[#7ab3ff]/20 dark:bg-[#7ab3ff]/10 dark:text-[#9bc5ff]">
                     Restricted
                   </span>
                 </div>
@@ -250,7 +271,7 @@ export default function ProjectContent({ project, allProjects = [] }) {
                 className="relative group inline-flex items-center rounded-full p-[2px] bg-gradient-to-r from-[#0968e5]/50 via-blue-400/30 to-[#091970] shadow-xs hover:shadow-md hover:shadow-[#0968e5]/20 transition-all duration-300"
                 title="Copy share link"
               >
-                <span className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white dark:bg-[#050b2b] group-hover:bg-opacity-80 dark:group-hover:bg-opacity-70 transition-colors text-sm font-semibold text-slate-700 dark:text-slate-200">
+                <span className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white dark:bg-black group-hover:bg-opacity-80 dark:group-hover:bg-opacity-70 transition-colors text-sm font-semibold text-slate-700 dark:text-slate-200">
                   {copiedLink ? (
                     <>
                       <CheckCircle2 className="w-4 h-4 text-emerald-400 animate-bounce" />
@@ -265,6 +286,53 @@ export default function ProjectContent({ project, allProjects = [] }) {
                 </span>
               </motion.button>
             </div>
+
+            {/* Error Message / Live Demo Access Notice under Live Demo */}
+            {(project?.errorMessage || !project?.link) && (
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, ease: appleEase }}
+                className="w-full max-w-2xl mx-auto"
+              >
+                <div className="relative overflow-hidden rounded-[1.75rem] border border-slate-200/80 bg-white/75 p-4 shadow-[0_18px_50px_rgba(9,25,112,0.08)] backdrop-blur-2xl transition-colors sm:p-5 dark:border-white/10 dark:bg-[#091970]/20 dark:shadow-black/20">
+                  <div className="pointer-events-none absolute -right-12 -top-16 h-36 w-36 rounded-full bg-[#0968e5]/10 blur-3xl dark:bg-[#4592ff]/10" />
+                  <div className="relative flex flex-col gap-4 sm:flex-row sm:items-start">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-[#0968e5]/20 bg-[#0968e5]/10 text-[#0968e5] shadow-sm dark:border-[#7ab3ff]/20 dark:bg-[#7ab3ff]/10 dark:text-[#9bc5ff]">
+                      <Info className="h-[18px] w-[18px]" />
+                    </div>
+                    <div className="min-w-0 flex-1 space-y-2 text-center sm:text-left">
+                      <div className="flex items-center justify-center gap-2 sm:justify-start">
+                        <span className="h-1.5 w-1.5 rounded-full bg-[#0968e5] shadow-[0_0_0_4px_rgba(9,104,229,0.12)] dark:bg-[#7ab3ff]" />
+                        <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
+                          Live Demo Access Note
+                        </span>
+                      </div>
+                      <p className="text-sm font-medium leading-relaxed text-slate-700 dark:text-slate-200 sm:text-[15px]">
+                        {project?.errorMessage || "For live demo access or system testing, please contact the developer."}
+                      </p>
+                      <div className="flex flex-wrap items-center justify-center gap-2 pt-1 sm:justify-start">
+                        <a
+                          href="https://wa.me/201003154481"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3.5 py-1.5 text-xs font-semibold text-emerald-700 transition-all hover:-translate-y-0.5 hover:bg-emerald-500/15 dark:border-emerald-400/20 dark:bg-emerald-400/10 dark:text-emerald-300"
+                        >
+                          <span>💬 WhatsApp</span>
+                        </a>
+                        <a
+                          href="mailto:mohammedmustafaibrahim02@gmail.com"
+                          className="inline-flex items-center gap-1.5 rounded-full border border-[#0968e5]/20 bg-[#0968e5]/10 px-3.5 py-1.5 text-xs font-semibold text-[#0968e5] transition-all hover:-translate-y-0.5 hover:bg-[#0968e5]/15 dark:border-[#7ab3ff]/20 dark:bg-[#7ab3ff]/10 dark:text-[#9bc5ff]"
+                        >
+                          <Mail className="h-3.5 w-3.5" />
+                          <span>Email</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
 
             {/* Tech Stack Icons */}
             {project?.icons?.length ? (
@@ -324,7 +392,7 @@ export default function ProjectContent({ project, allProjects = [] }) {
           </div>
 
           {/* Uncropped Image Viewport Canvas */}
-          <div className="relative flex items-center justify-center min-h-[320px] sm:min-h-[440px] md:min-h-[520px] py-4 px-2 rounded-2xl bg-gradient-to-b from-[#0968e5]/5 via-white/70 to-slate-100/50 border border-slate-200/60 shadow-inner dark:from-[#091970]/40 dark:via-[#050b2b]/70 dark:to-[#091970]/40 dark:border-white/5 overflow-hidden">
+          <div className="relative flex items-center justify-center min-h-[320px] sm:min-h-[440px] md:min-h-[520px] py-4 px-2 rounded-2xl bg-gradient-to-b from-[#0968e5]/5 via-white/70 to-slate-100/50 border border-slate-200/60 shadow-inner dark:from-[#091970]/40 dark:via-black/70 dark:to-[#091970]/40 dark:border-white/5 overflow-hidden">
             {/* Ambient Glow behind active screenshot */}
             <div
               aria-hidden="true"
@@ -358,7 +426,7 @@ export default function ProjectContent({ project, allProjects = [] }) {
                   }
                   whileHover={{ scale: 1.15 }}
                   whileTap={{ scale: 0.9 }}
-                  className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 grid h-11 w-11 place-items-center rounded-full bg-gradient-to-br from-white/95 to-slate-100/95 dark:from-[#091970]/95 dark:to-[#050b2b]/95 border border-white/80 dark:border-[#0968e5]/30 hover:border-[#0968e5] text-slate-700 dark:text-slate-200 shadow-xl backdrop-blur-md transition-all cursor-pointer"
+                  className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 grid h-11 w-11 place-items-center rounded-full bg-gradient-to-br from-white/95 to-slate-100/95 dark:from-[#091970]/95 dark:to-black/95 border border-white/80 dark:border-[#0968e5]/30 hover:border-[#0968e5] text-slate-700 dark:text-slate-200 shadow-xl backdrop-blur-md transition-all cursor-pointer"
                   aria-label="Previous screenshot"
                 >
                   <ChevronLeft className="w-5 h-5" />
@@ -371,7 +439,7 @@ export default function ProjectContent({ project, allProjects = [] }) {
                   }
                   whileHover={{ scale: 1.15 }}
                   whileTap={{ scale: 0.9 }}
-                  className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 grid h-11 w-11 place-items-center rounded-full bg-gradient-to-br from-white/95 to-slate-100/95 dark:from-[#091970]/95 dark:to-[#050b2b]/95 border border-white/80 dark:border-[#0968e5]/30 hover:border-[#0968e5] text-slate-700 dark:text-slate-200 shadow-xl backdrop-blur-md transition-all cursor-pointer"
+                  className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 grid h-11 w-11 place-items-center rounded-full bg-gradient-to-br from-white/95 to-slate-100/95 dark:from-[#091970]/95 dark:to-black/95 border border-white/80 dark:border-[#0968e5]/30 hover:border-[#0968e5] text-slate-700 dark:text-slate-200 shadow-xl backdrop-blur-md transition-all cursor-pointer"
                   aria-label="Next screenshot"
                 >
                   <ChevronRight className="w-5 h-5" />

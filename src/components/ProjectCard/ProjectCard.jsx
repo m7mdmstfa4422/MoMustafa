@@ -54,7 +54,7 @@ export default function ProjectCard({ project }) {
 
           {/* Quick Hover Action Overlay */}
           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-slate-950/20 backdrop-blur-[2px]">
-            <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/90 dark:bg-slate-950/90 text-xs font-bold text-[#091970] dark:text-[#7ab3ff] shadow-lg transform translate-y-2 group-hover:translate-y-0 transition-transform">
+            <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/90 dark:bg-black/90 text-xs font-bold text-[#091970] dark:text-[#7ab3ff] shadow-lg transform translate-y-2 group-hover:translate-y-0 transition-transform">
               <span>View Case Study</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </span>
@@ -97,7 +97,7 @@ export default function ProjectCard({ project }) {
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </Link>
 
-            {project.link && (
+            {project.link ? (
               <a
                 href={project.link}
                 target="_blank"
@@ -108,6 +108,18 @@ export default function ProjectCard({ project }) {
                 <span>Live Demo</span>
                 <ExternalLink className="w-3 h-3" />
               </a>
+            ) : (
+              <Link
+                to={`/projects/${project.id}`}
+                onClick={(e) => e.stopPropagation()}
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-600 dark:text-amber-400 hover:underline"
+                title={project.errorMessage || "For live demo access or system testing, please contact the developer."}
+              >
+                <span>Live Demo</span>
+                <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-500/10 dark:bg-amber-400/10 border border-amber-500/20 font-semibold">
+                  On Request
+                </span>
+              </Link>
             )}
           </div>
         </div>
