@@ -44,7 +44,11 @@ const itemVariants = {
 
 export default function Footer() {
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    try {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (_e) {
+      window.scrollTo(0, 0);
+    }
   };
 
   return (
@@ -54,16 +58,15 @@ export default function Footer() {
       {/* ------------------------------------------------------------- */}
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
         <div
-          className="absolute inset-0 opacity-40 dark:opacity-60"
+          className="absolute inset-0 opacity-30 dark:opacity-40"
           style={{
             backgroundImage:
               "linear-gradient(rgba(9, 104, 229, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(9, 104, 229, 0.06) 1px, transparent 1px)",
             backgroundSize: "48px 48px",
-            maskImage: "linear-gradient(to bottom, black 15%, transparent 95%)",
           }}
         />
-        <div className="absolute -left-24 -bottom-24 h-96 w-96 rounded-full bg-gradient-to-br from-[#0968e5]/20 to-[#091970]/30 blur-3xl" />
-        <div className="absolute -right-24 top-0 h-80 w-80 rounded-full bg-gradient-to-tl from-[#091970]/30 to-[#0968e5]/15 blur-3xl" />
+        <div className="absolute -left-24 -bottom-24 h-72 w-72 rounded-full bg-gradient-to-br from-[#0968e5]/15 to-[#091970]/20 blur-2xl" />
+        <div className="absolute -right-24 top-0 h-64 w-64 rounded-full bg-gradient-to-tl from-[#091970]/20 to-[#0968e5]/10 blur-2xl" />
       </div>
 
       <div className="max-w-6xl mx-auto space-y-12 relative z-10">

@@ -8,12 +8,7 @@ self.addEventListener('activate', (event) => {
     caches.keys().then((names) => {
       return Promise.all(names.map((name) => caches.delete(name)));
     }).then(() => {
-      return self.clients.claim();
+      return self.registration.unregister();
     })
   );
-});
-
-// Do not intercept or block any network requests
-self.addEventListener('fetch', () => {
-  return;
 });

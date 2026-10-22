@@ -63,7 +63,7 @@ export default function LayoutPro() {
   // Update document title
   useEffect(() => {
     document.title = "All Projects Archive — Mohamed Mustafa";
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    try { window.scrollTo(0, 0); } catch (_e) {}
   }, []);
 
   // Filter projects by category and search query
@@ -104,37 +104,18 @@ export default function LayoutPro() {
   return (
     <div className="relative min-h-screen bg-[#f7f8ff] dark:bg-black text-slate-900 dark:text-slate-100 overflow-x-hidden font-sans transition-colors duration-300">
       {/* ------------------------------------------------------------- */}
-      {/* ATMOSPHERIC APPLE MESH GRADIENTS (LIGHT & DARK)               */}
-      {/* ------------------------------------------------------------- */}
+      {/* ATMOSPHERIC BACKGROUND (HARDWARE-ACCELERATED & ZERO MEMORY OVERHEAD) */}
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
-        {/* Subtle geometric 52px grid */}
         <div
-          className="absolute inset-0 opacity-45 dark:opacity-100"
+          className="absolute inset-0 opacity-30 dark:opacity-40"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(99,102,241,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,.06) 1px, transparent 1px)",
-            backgroundSize: "52px 52px",
-            maskImage: "linear-gradient(to bottom, black 25%, transparent 95%)",
+              "linear-gradient(rgba(9, 104, 229, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(9, 104, 229, 0.08) 1px, transparent 1px)",
+            backgroundSize: "48px 48px",
           }}
         />
-
-        <motion.div
-          animate={{ x: [0, 50, 0], y: [0, -30, 0], scale: [1, 1.12, 1] }}
-          transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-32 -left-20 w-[40rem] h-[40rem] rounded-full bg-indigo-400/15 blur-3xl dark:bg-indigo-500/15"
-        />
-
-        <motion.div
-          animate={{ x: [0, -45, 0], scale: [1, 1.15, 1] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/3 -right-24 w-[38rem] h-[38rem] rounded-full bg-cyan-400/15 blur-3xl dark:bg-cyan-500/12"
-        />
-
-        <motion.div
-          animate={{ y: [0, -35, 0], scale: [1, 1.08, 1] }}
-          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -bottom-28 left-1/4 w-[34rem] h-[34rem] rounded-full bg-violet-400/15 blur-3xl dark:bg-violet-600/10"
-        />
+        <div className="absolute top-0 left-1/4 w-[32rem] h-[20rem] rounded-full bg-gradient-to-br from-[#0968e5]/15 to-[#091970]/15 blur-2xl pointer-events-none" />
+        <div className="absolute top-1/3 right-0 w-[24rem] h-[24rem] rounded-full bg-gradient-to-tl from-[#094dbf]/10 to-transparent blur-2xl pointer-events-none" />
       </div>
 
       {/* Floating Apple Dock Sidebar */}
@@ -152,7 +133,7 @@ export default function LayoutPro() {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="text-center max-w-3xl mx-auto mb-12 space-y-4"
           >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white/80 dark:bg-white/5 border border-indigo-200/80 dark:border-white/10 text-indigo-600 dark:text-cyan-300 shadow-xs backdrop-blur-xl">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white/80 dark:bg-white/5 border border-indigo-200/80 dark:border-white/10 text-indigo-600 dark:text-cyan-300 shadow-xs backdrop-blur-md">
               <Sparkles className="w-3.5 h-3.5" />
               <span>Projects Archive</span>
               <span className="opacity-30">•</span>
@@ -179,7 +160,7 @@ export default function LayoutPro() {
             className="mb-12 flex flex-col lg:flex-row items-center justify-between gap-4"
           >
             {/* Apple Segmented Category Tabs */}
-            <div className="flex flex-wrap items-center justify-center p-1.5 rounded-[1.75rem] border border-white/80 bg-white/70 shadow-lg shadow-indigo-950/[0.04] backdrop-blur-2xl dark:border-white/10 dark:bg-white/[0.045]">
+            <div className="flex flex-wrap items-center justify-center p-1.5 rounded-[1.75rem] border border-white/80 bg-white/70 shadow-lg shadow-indigo-950/[0.04] backdrop-blur-md dark:border-white/10 dark:bg-white/[0.045]">
               {CATEGORIES.map((tab) => {
                 const Icon = tab.icon;
                 const isActive = activeCategory === tab.id;
@@ -227,7 +208,7 @@ export default function LayoutPro() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search projects or tech..."
-                className="w-full pl-10 pr-9 py-2.5 rounded-2xl border border-white/80 bg-white/70 shadow-xs backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.045] text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 dark:focus:ring-cyan-400/50 transition-all"
+                className="w-full pl-10 pr-9 py-2.5 rounded-2xl border border-white/80 bg-white/70 shadow-xs backdrop-blur-md dark:border-white/10 dark:bg-white/[0.045] text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 dark:focus:ring-cyan-400/50 transition-all"
               />
               {searchQuery && (
                 <button

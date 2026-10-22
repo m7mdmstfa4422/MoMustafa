@@ -1,9 +1,8 @@
 "use client";
-/* eslint-disable no-unused-vars */
 
-import { useEffect, useState, useMemo } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useMemo } from "react";
+import { useParams, Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { ArrowLeft, Sparkles } from "lucide-react";
 
 // Project Data repository
@@ -15,24 +14,26 @@ import Footer from "../Footer/Footer";
 
 export default function Information() {
   const { id } = useParams();
-  const navigate = useNavigate();
 
-  // Find project by ID
+  // Find project by ID (safely handles strings, numbers, trailing slashes)
   const project = useMemo(() => {
     if (!id) return projectsData[0];
-    const found = projectsData.find((p) => String(p.id) === String(id));
+    const cleanId = String(id).replace(/\/+$/, "").trim();
+    const found = projectsData.find((p) => String(p.id) === cleanId);
     return found || null;
   }, [id]);
 
-  // Scroll to top upon project change
+  // Safe scroll to top upon project change
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    try {
+      window.scrollTo(0, 0);
+    } catch (_e) {}
   }, [id]);
 
   // Page title
   useEffect(() => {
     if (project?.title) {
-      document.title = `${project.title} — Case Study | Mohamed Mustafa`;
+      document.title = `${project.title.trim()} — Case Study | Mohamed Mustafa`;
     }
   }, [project]);
 
@@ -62,65 +63,34 @@ export default function Information() {
   return (
     <div className="relative min-h-screen bg-[#f7f8ff] dark:bg-black text-slate-900 dark:text-slate-100 overflow-x-hidden transition-colors duration-300">
       {/* ------------------------------------------------------------- */}
-      {/* ATMOSPHERIC APPLE MESH GRADIENTS (LIGHT & DARK HARMONY)       */}
+      {/* LIGHTWEIGHT HARDWARE-SAFE BACKGROUND (ZERO GPU MEMORY LEAK)   */}
       {/* ------------------------------------------------------------- */}
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
-        {/* Subtle 52px geometric grid */}
+        {/* Subtle geometric grid */}
         <div
-          className="absolute inset-0 opacity-40 dark:opacity-70"
+          className="absolute inset-0 opacity-30 dark:opacity-40"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(9, 104, 229, 0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(9, 104, 229, 0.07) 1px, transparent 1px)",
-            backgroundSize: "52px 52px",
-            maskImage: "linear-gradient(to bottom, black 20%, transparent 95%)",
+              "linear-gradient(rgba(9, 104, 229, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(9, 104, 229, 0.08) 1px, transparent 1px)",
+            backgroundSize: "48px 48px",
           }}
         />
 
-        {/* Ambient Top Left Glow (#0968e5) */}
-        <motion.div
-          animate={{
-            x: [0, 45, 0],
-            y: [0, -25, 0],
-            scale: [1, 1.12, 1],
-          }}
-          transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-32 -left-20 w-[36rem] h-[36rem] rounded-full bg-gradient-to-br from-[#0968e5]/25 to-[#091970]/30 blur-3xl"
-        />
-
-        {/* Ambient Right Glow (#091970 / #094dbf) */}
-        <motion.div
-          animate={{
-            x: [0, -40, 0],
-            scale: [1, 1.15, 1],
-          }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/4 -right-24 w-[38rem] h-[38rem] rounded-full bg-gradient-to-tl from-[#091970]/35 via-[#094dbf]/20 to-[#0968e5]/20 blur-3xl"
-        />
-
-        {/* Ambient Bottom Glow */}
-        <motion.div
-          animate={{
-            y: [0, -35, 0],
-            scale: [1, 1.08, 1],
-          }}
-          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -bottom-28 left-1/3 w-[32rem] h-[32rem] rounded-full bg-[#0968e5]/15 blur-3xl dark:bg-[#091970]/25"
-        />
+        {/* Static soft gradients (No infinite frame recalculations on mobile) */}
+        <div className="absolute top-0 left-1/4 w-[32rem] h-[20rem] rounded-full bg-gradient-to-br from-[#0968e5]/15 to-[#091970]/15 blur-2xl pointer-events-none" />
+        <div className="absolute top-1/3 right-0 w-[24rem] h-[24rem] rounded-full bg-gradient-to-tl from-[#094dbf]/10 to-transparent blur-2xl pointer-events-none" />
       </div>
 
       {/* Main layout container with desktop sidebar clearance */}
       <main className="relative z-10 md:ml-20">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={project.id}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -16 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-          >
-            <ProjectContent project={project} allProjects={projectsData} />
-          </motion.div>
-        </AnimatePresence>
+        <motion.div
+          key={project.id}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.25, ease: "easeOut" }}
+        >
+          <ProjectContent project={project} allProjects={projectsData} />
+        </motion.div>
 
         <Footer />
       </main>

@@ -136,8 +136,7 @@ export default function ProjectContent({ project, allProjects = [] }) {
     <motion.div
       variants={containerVariants}
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+      animate="visible"
       className="relative max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-8 md:py-14 text-slate-900 dark:text-slate-100 font-sans"
     >
       {/* ------------------------------------------------------------- */}
@@ -249,7 +248,7 @@ export default function ProjectContent({ project, allProjects = [] }) {
                 </motion.a>
               ) : (
                 <div
-                  className="inline-flex items-center gap-2.5 rounded-full border border-[#0968e5]/15 bg-white/70 px-6 py-3.5 text-sm font-semibold text-slate-500 shadow-[0_10px_30px_rgba(9,25,112,0.06)] backdrop-blur-xl transition-colors dark:border-[#7ab3ff]/15 dark:bg-white/[0.05] dark:text-slate-400"
+                  className="inline-flex items-center gap-2.5 rounded-full border border-[#0968e5]/15 bg-white/70 px-6 py-3.5 text-sm font-semibold text-slate-500 shadow-[0_10px_30px_rgba(9,25,112,0.06)] backdrop-blur-md transition-colors dark:border-[#7ab3ff]/15 dark:bg-white/[0.05] dark:text-slate-400"
                   title="Source code is private or confidential"
                 >
                   <span className="flex h-7 w-7 items-center justify-center rounded-xl border border-[#0968e5]/15 bg-[#0968e5]/10 text-[#0968e5] dark:border-[#7ab3ff]/15 dark:bg-[#7ab3ff]/10 dark:text-[#9bc5ff]">
@@ -295,8 +294,8 @@ export default function ProjectContent({ project, allProjects = [] }) {
                 transition={{ duration: 0.4, ease: appleEase }}
                 className="w-full max-w-2xl mx-auto"
               >
-                <div className="relative overflow-hidden rounded-[1.75rem] border border-slate-200/80 bg-white/75 p-4 shadow-[0_18px_50px_rgba(9,25,112,0.08)] backdrop-blur-2xl transition-colors sm:p-5 dark:border-white/10 dark:bg-[#091970]/20 dark:shadow-black/20">
-                  <div className="pointer-events-none absolute -right-12 -top-16 h-36 w-36 rounded-full bg-[#0968e5]/10 blur-3xl dark:bg-[#4592ff]/10" />
+                <div className="relative overflow-hidden rounded-[1.75rem] border border-slate-200/80 bg-white/75 p-4 shadow-lg backdrop-blur-md transition-colors sm:p-5 dark:border-white/10 dark:bg-[#091970]/20 dark:shadow-black/20">
+                  
                   <div className="relative flex flex-col gap-4 sm:flex-row sm:items-start">
                     <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-[#0968e5]/20 bg-[#0968e5]/10 text-[#0968e5] shadow-sm dark:border-[#7ab3ff]/20 dark:bg-[#7ab3ff]/10 dark:text-[#9bc5ff]">
                       <Info className="h-[18px] w-[18px]" />
@@ -356,7 +355,7 @@ export default function ProjectContent({ project, allProjects = [] }) {
       {/* 2. APPLE STUDIO DISPLAY SHOWCASE (STAGGERED REVEAL)           */}
       {/* ------------------------------------------------------------- */}
       <motion.section variants={itemVariants} className="mb-14">
-        <div className="relative overflow-hidden rounded-[2rem] border border-white/80 bg-white/70 shadow-2xl shadow-[#091970]/[0.08] backdrop-blur-2xl dark:border-[#0968e5]/25 dark:bg-[#091970]/15 dark:shadow-black/60 p-3 sm:p-5 md:p-6 transition-colors">
+        <div className="relative overflow-hidden rounded-[2rem] border border-white/80 bg-white/70 shadow-xl backdrop-blur-md dark:border-[#0968e5]/25 dark:bg-[#091970]/15 dark:shadow-black/60 p-3 sm:p-5 md:p-6 transition-colors">
           {/* macOS Safari Chrome Bar */}
           <div className="flex items-center justify-between pb-3.5 mb-3 border-b border-slate-200/80 dark:border-white/10 px-2">
             {/* Traffic light dots */}
@@ -393,20 +392,14 @@ export default function ProjectContent({ project, allProjects = [] }) {
 
           {/* Uncropped Image Viewport Canvas */}
           <div className="relative flex items-center justify-center min-h-[320px] sm:min-h-[440px] md:min-h-[520px] py-4 px-2 rounded-2xl bg-gradient-to-b from-[#0968e5]/5 via-white/70 to-slate-100/50 border border-slate-200/60 shadow-inner dark:from-[#091970]/40 dark:via-black/70 dark:to-[#091970]/40 dark:border-white/5 overflow-hidden">
-            {/* Ambient Glow behind active screenshot */}
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0 opacity-25 dark:opacity-35 blur-3xl transition-opacity"
-              style={{
-                backgroundImage: `radial-gradient(circle at center, #0968e5, #091970 70%, transparent 85%)`,
-              }}
-            />
+            
 
             <AnimatePresence mode="wait">
               <motion.img
                 key={currentImage}
                 src={currentImage}
                 alt={`${project?.title} preview ${selectedImageIndex + 1}`}
+                decoding="async"
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.98 }}
@@ -478,7 +471,7 @@ export default function ProjectContent({ project, allProjects = [] }) {
 
         {/* Video Showcase (if available) */}
         {project?.video && (
-          <div className="mt-8 rounded-[2rem] border border-white/80 bg-white/70 shadow-xl shadow-[#091970]/[0.05] backdrop-blur-xl dark:border-[#0968e5]/20 dark:bg-[#091970]/15 p-4 sm:p-6">
+          <div className="mt-8 rounded-[2rem] border border-white/80 bg-white/70 shadow-xl shadow-[#091970]/[0.05] backdrop-blur-md dark:border-[#0968e5]/20 dark:bg-[#091970]/15 p-4 sm:p-6">
             <div className="flex items-center gap-2 mb-4">
               <Zap className="w-4 h-4 text-[#0968e5]" />
               <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white">
@@ -511,8 +504,7 @@ export default function ProjectContent({ project, allProjects = [] }) {
         <motion.div
           variants={bentoContainerVariants}
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          animate="visible"
           className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6"
         >
           {project?.features?.map((item, idx) => (
@@ -520,7 +512,7 @@ export default function ProjectContent({ project, allProjects = [] }) {
               key={idx}
               variants={itemVariants}
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className="flex items-start gap-4 p-5 sm:p-6 rounded-[1.75rem] border border-white/80 bg-white/70 shadow-lg shadow-[#091970]/[0.03] backdrop-blur-xl dark:border-[#0968e5]/15 dark:bg-[#091970]/20 hover:border-[#0968e5]/40 transition-colors"
+              className="flex items-start gap-4 p-5 sm:p-6 rounded-[1.75rem] border border-white/80 bg-white/70 shadow-lg shadow-[#091970]/[0.03] backdrop-blur-md dark:border-[#0968e5]/15 dark:bg-[#091970]/20 hover:border-[#0968e5]/40 transition-colors"
             >
               <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-[#0968e5]/10 text-[#0968e5] dark:text-[#3b8bfd] border border-[#0968e5]/20 shadow-xs">
                 <CheckCircle2 className="w-5 h-5" />
@@ -541,7 +533,7 @@ export default function ProjectContent({ project, allProjects = [] }) {
         {project?.tags?.length ? (
           <motion.div
             variants={itemVariants}
-            className="p-6 rounded-[1.75rem] border border-white/80 bg-white/70 shadow-lg shadow-[#091970]/[0.03] backdrop-blur-xl dark:border-[#0968e5]/15 dark:bg-[#091970]/20"
+            className="p-6 rounded-[1.75rem] border border-white/80 bg-white/70 shadow-lg shadow-[#091970]/[0.03] backdrop-blur-md dark:border-[#0968e5]/15 dark:bg-[#091970]/20"
           >
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
               Technologies &amp; Libraries
@@ -623,7 +615,7 @@ export default function ProjectContent({ project, allProjects = [] }) {
       <AnimatePresence>
         {isLightboxOpen && (
           <motion.div
-            className="fixed inset-0 z-[100] flex flex-col justify-between p-4 sm:p-6 backdrop-blur-2xl"
+            className="fixed inset-0 z-[100] flex flex-col justify-between p-4 sm:p-6 backdrop-blur-md"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
