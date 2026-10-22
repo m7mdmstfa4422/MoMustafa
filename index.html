@@ -39,23 +39,28 @@
   <meta name="author" content="Mohamed Mustafa" />
 
   <title>Mohamed Mustafa | Portfolio</title>
-  <script type="module" crossorigin src="/MoMustafa/assets/index-LVniqs3W.js"></script>
+  <script type="module" crossorigin src="/MoMustafa/assets/index-Bn8aQWp7.js"></script>
   <link rel="stylesheet" crossorigin href="/MoMustafa/assets/index-afmlredY.css">
 </head>
 
 <body class="bg-[#f7f8ff] dark:bg-black text-slate-900 dark:text-slate-100">
   <div id="root"></div>
 
-  <!-- Service Worker Registration -->
+  <!-- Clear any stale Service Worker or mobile browser cache -->
   <script>
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/MoMustafa/sw.js', { scope: '/MoMustafa/' }).then((registration) => {
-          console.log('Service Worker registered successfully');
-        }).catch((error) => {
-          console.warn('Service Worker registration note:', error);
-        });
-      });
+      navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        for (var i = 0; i < registrations.length; i++) {
+          registrations[i].unregister();
+        }
+      }).catch(function() {});
+    }
+    if ('caches' in window) {
+      caches.keys().then(function(names) {
+        for (var i = 0; i < names.length; i++) {
+          caches.delete(names[i]);
+        }
+      }).catch(function() {});
     }
   </script>
 </body>
